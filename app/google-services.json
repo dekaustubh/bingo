@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "714178780957",
+    "firebase_url": "https://bingo-f68a9.firebaseio.com",
+    "project_id": "bingo-f68a9",
+    "storage_bucket": "bingo-f68a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714178780957:android:a3e0f0cd1d3029062a4bf4",
+        "android_client_info": {
+          "package_name": "com.dekaustubh.bingo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714178780957-vhvvbdaeekvtm4gglngkq8tpvb58luv8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPwa5xiChaHg6W15oUIBepeMhb4XVzf9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714178780957-vhvvbdaeekvtm4gglngkq8tpvb58luv8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

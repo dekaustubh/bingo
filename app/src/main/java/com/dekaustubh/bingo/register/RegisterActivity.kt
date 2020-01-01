@@ -1,10 +1,10 @@
 package com.dekaustubh.bingo.register
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.dekaustubh.bingo.R
+import dagger.android.DaggerActivity
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterActivity : DaggerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

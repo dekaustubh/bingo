@@ -46,15 +46,20 @@ dependencies {
     // Support
     implementation "com.android.support:recyclerview-v7:$recyclerview"
 
+    // AndroidX appcomponent
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
     // Firebase
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
 
     // DI
-    implementation "com.google.dagger:dagger:$dagger"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide"

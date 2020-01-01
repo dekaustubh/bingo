@@ -1,9 +1,9 @@
 package com.dekaustubh.bingo
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import dagger.android.DaggerActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

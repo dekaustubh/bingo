@@ -14,6 +14,11 @@ buildscript {
         timber = '4.7.1'
         crashlytics_version = '2.10.1'
         recyclerview = '29.0.0'
+        rx_android = '2.1.1'
+        rx_java = '2.2.16'
+        room_version = '2.2.3'
+        butterknife_version = '10.2.1'
+        lifecycle_version = '2.1.0'
 
         // Testing versions
         junit = '4.12'

@@ -47,8 +47,6 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$recyclerview"
 
     // Firebase
-    implementation "com.google.firebase:firebase-database:$firebase"
-    implementation "com.google.firebase:firebase-database-ktx:$firebase"
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
 
@@ -68,6 +66,22 @@ dependencies {
     // Timber
     implementation "com.jakewharton.timber:timber:$timber"
 
+    // RxJava2 Dependencies
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // Butterknife
+    implementation "com.jakewharton:butterknife:$butterknife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
     // ############## Test dependencies. ##############
     // JUnit.
     testImplementation "junit:junit:$junit"
@@ -78,6 +92,12 @@ dependencies {
 
     // Robolectric
     testImplementation "org.robolectric:robolectric:$robolectric"
+
+    // Room
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    // ViewMode and LiveData
+    testImplementation "androidx.arch.core:core-testing:$lifecycle_version"
 }
 
 apply plugin: 'com.google.gms.google-services'

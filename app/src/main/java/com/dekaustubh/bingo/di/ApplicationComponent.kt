@@ -2,9 +2,6 @@ package com.dekaustubh.bingo.di
 
 import android.app.Application
 import com.dekaustubh.bingo.BingoApplication
-import com.dekaustubh.bingo.db.BingoDatabase
-import com.dekaustubh.bingo.db.dao.RoomDao
-import com.dekaustubh.bingo.db.dao.UserDao
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -16,7 +13,8 @@ import javax.inject.Singleton
         ActivityBindingModule::class,
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        RetrofitModule::class
     ]
 )
 @Singleton

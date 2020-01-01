@@ -19,9 +19,9 @@ class SplashActivity : DaggerActivity() {
         setContentView(R.layout.activity_splash)
 
         if (loginPref.isUsedLoggedIn()) {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        } else {
             startActivity(Intent(this, MainActivity::class.java))
+        } else {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         finish()

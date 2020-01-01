@@ -4,9 +4,10 @@ import com.dekaustubh.bingo.di.ApplicationComponent
 import com.dekaustubh.bingo.di.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import timber.log.Timber
 
 class BingoApplication : DaggerApplication() {
-    lateinit var applicationComponent : ApplicationComponent
+    private lateinit var applicationComponent : ApplicationComponent
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         applicationComponent = DaggerApplicationComponent.builder()
@@ -15,4 +16,10 @@ class BingoApplication : DaggerApplication() {
         return applicationComponent
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+    }
 }

@@ -1,10 +1,11 @@
-package com.dekaustubh.bingo.db
+package com.dekaustubh.bingo.db.entities
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class User(
-    val id: Long,
+    @PrimaryKey val id: Long,
     val name: String,
     val email: String,
     val token: String?

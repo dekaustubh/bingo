@@ -2,8 +2,8 @@ package com.dekaustubh.bingo.splash
 
 import android.content.Intent
 import android.os.Bundle
-import com.dekaustubh.bingo.MainActivity
 import com.dekaustubh.bingo.R
+import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.preferences.LoginPreference
 import com.dekaustubh.bingo.register.RegisterActivity
 import dagger.android.DaggerActivity

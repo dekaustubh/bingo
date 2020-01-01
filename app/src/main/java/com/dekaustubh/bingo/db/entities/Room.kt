@@ -1,9 +1,12 @@
-package com.dekaustubh.bingo.db
+package com.dekaustubh.bingo.db.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity
 data class Room(
-    val id: Long,
+    @PrimaryKey val id: Long,
     val name: String,
     @ColumnInfo(name = "leaderboard_id")
     val leaderboardId: Long?,

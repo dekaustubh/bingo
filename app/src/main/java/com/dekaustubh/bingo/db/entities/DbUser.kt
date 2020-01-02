@@ -8,5 +8,6 @@ data class DbUser(
     @PrimaryKey val id: Long,
     val name: String,
     val email: String,
-    val token: String?
+    val token: String?,
+    val loggedInUser: Boolean
 )

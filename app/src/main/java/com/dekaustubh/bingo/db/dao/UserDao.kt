@@ -14,6 +14,9 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE id = (:userId)")
     fun getUserById(userId: Long): DbUser
 
+    @Query("SELECT * FROM user WHERE loggedInUser = (:loggedIn)")
+    fun getLoggedInUser(loggedIn: Boolean = true): DbUser
+
     @Insert
     fun insert(user: DbUser)
 

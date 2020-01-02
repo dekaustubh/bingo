@@ -11,5 +11,6 @@ interface RegisterContract {
 
     interface Presenter: BasePresenter<View> {
         fun registerUser(name: String, email: String, password: String)
+        fun loginUser(email: String, password: String)
     }
 }

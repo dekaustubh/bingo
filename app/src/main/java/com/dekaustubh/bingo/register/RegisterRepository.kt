@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 interface RegisterRepository {
     fun registerUser(name: String, email: String, password: String): Single<User>
+    fun loginUser(email: String, password: String): Single<User>
 }
 
 class RegisterRepositoryImpl @Inject constructor(
@@ -19,7 +20,18 @@ class RegisterRepositoryImpl @Inject constructor(
         return bingoApi.registerUser(LoginRequest(name, email, password))
             .map { userResult ->
                 if (userResult.error != null) throw Exception(userResult.error.error)
-                val user = userResult.user ?: throw java.lang.Exception("Error while registering")
+                val user = userResult.user ?: throw Exception("Error while registering")
+
+                bingoDatabase.userDao().insert(user.toDbUser(true))
+                user
+            }
+    }
+
+    override fun loginUser(email: String, password: String): Single<User> {
+        return bingoApi.loginUser(LoginRequest(null, email, password))
+            .map { userResult ->
+                if (userResult.error != null) throw Exception(userResult.error.error)
+                val user = userResult.user ?: throw Exception("Error while login")
 
                 bingoDatabase.userDao().insert(user.toDbUser(true))
                 user

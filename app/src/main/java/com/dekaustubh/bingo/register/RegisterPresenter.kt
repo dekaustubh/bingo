@@ -34,6 +34,24 @@ class RegisterPresenter @Inject constructor(
         )
     }
 
+    override fun loginUser(email: String, password: String) {
+        compositeDisposable.add(
+            registerRepository.loginUser(email, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { user ->
+                        loginPreference.saveLoggedInUser(user.id)
+                        view?.showUser(user)
+                    },
+                    { e ->
+                        Timber.e(e)
+                        view?.showError(e.message ?: "Error while registering user.")
+                    }
+                )
+        )
+    }
+
     override fun attach(view: RegisterContract.View) {
         this.view = view
     }

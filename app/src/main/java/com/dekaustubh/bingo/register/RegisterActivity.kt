@@ -15,7 +15,7 @@ import com.dekaustubh.bingo.models.User
 import dagger.android.DaggerActivity
 import javax.inject.Inject
 
-class RegisterActivity : DaggerActivity(), RegisterContract.RegisterView {
+class RegisterActivity : DaggerActivity(), RegisterContract.View {
 
     @BindView(R.id.name)
     lateinit var nameEditText: EditText
@@ -33,7 +33,7 @@ class RegisterActivity : DaggerActivity(), RegisterContract.RegisterView {
     lateinit var progressBar: ProgressBar
 
     @Inject
-    lateinit var presenter: RegisterContract.RegisterPresenter
+    lateinit var presenter: RegisterContract.Presenter
 
     @Inject
     lateinit var toaster: Toaster

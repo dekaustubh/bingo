@@ -5,11 +5,11 @@ import com.dekaustubh.bingo.base.BaseView
 import com.dekaustubh.bingo.models.User
 
 interface RegisterContract {
-    interface RegisterView: BaseView<RegisterPresenter> {
+    interface View: BaseView<Presenter> {
         fun showUser(user: User)
     }
 
-    interface RegisterPresenter: BasePresenter<RegisterView> {
+    interface Presenter: BasePresenter<View> {
         fun registerUser(name: String, email: String, password: String)
     }
 }

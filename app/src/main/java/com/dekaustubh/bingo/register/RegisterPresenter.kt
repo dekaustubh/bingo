@@ -8,13 +8,13 @@ import timber.log.Timber
 import java.lang.Exception
 import javax.inject.Inject
 
-class RegisterPresenterImpl @Inject constructor(
+class RegisterPresenter @Inject constructor(
     private val registerRepository: RegisterRepository,
     private val loginPreference: LoginPreference
-) : RegisterContract.RegisterPresenter {
+) : RegisterContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
-    private var view: RegisterContract.RegisterView? = null
+    private var view: RegisterContract.View? = null
 
     override fun registerUser(name: String, email: String, password: String) {
         compositeDisposable.add(
@@ -38,7 +38,7 @@ class RegisterPresenterImpl @Inject constructor(
         )
     }
 
-    override fun attach(view: RegisterContract.RegisterView) {
+    override fun attach(view: RegisterContract.View) {
         this.view = view
     }
 

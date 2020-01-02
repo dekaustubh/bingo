@@ -22,17 +22,13 @@ class RegisterPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    val user = it.user
-                    if (it.error != null) throw Exception(it.error.error)
-                    if (user == null) throw Exception("Error while registering")
-
+                { user ->
                     loginPreference.saveLoggedInUser(user.id)
                     view?.showUser(user)
                 },
-                {
-                    Timber.e(it)
-                    view?.showError(it.message ?: "Error while registering user.")
+                { e ->
+                    Timber.e(e)
+                    view?.showError(e.message ?: "Error while registering user.")
                 }
             )
         )

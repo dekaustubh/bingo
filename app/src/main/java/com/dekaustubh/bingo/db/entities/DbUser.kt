@@ -9,5 +9,5 @@ data class DbUser(
     val name: String,
     val email: String,
     val token: String?,
-    val loggedInUser: Boolean
+    val loggedInUser: Boolean = false
 )

@@ -2,7 +2,6 @@ package com.dekaustubh.bingo.register
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import com.dekaustubh.bingo.R
 
 
@@ -13,20 +12,38 @@ class RegisterActivity : AppCompatActivity(), RegisterFragment.OnRegisterFragmen
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        replaceFragment(RegisterFragment.newInstance())
+        showRegisterFragment()
     }
 
     override fun clickedLogin() {
-        replaceFragment(LoginFragment.newInstance())
+        showLoginFragment()
     }
 
     override fun clickedRegister() {
-        replaceFragment(RegisterFragment.newInstance())
+        showRegisterFragment()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun showLoginFragment() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
+        transaction.setCustomAnimations(
+            R.anim.enter_from_right,
+            R.anim.exit_to_left,
+            0,
+            0
+        )
+        transaction.replace(R.id.container, LoginFragment.newInstance())
+        transaction.commit()
+    }
+
+    private fun showRegisterFragment() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(
+            R.anim.enter_from_left,
+            R.anim.exit_to_right,
+            0,
+            0
+        )
+        transaction.replace(R.id.container, RegisterFragment.newInstance())
         transaction.commit()
     }
 }

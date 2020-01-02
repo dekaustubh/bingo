@@ -5,4 +5,6 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="register">Register</string>
+    <string name="create_room">Create room</string>
+    <string name="no_rooms_joined">No rooms joined.</string>
 </resources>

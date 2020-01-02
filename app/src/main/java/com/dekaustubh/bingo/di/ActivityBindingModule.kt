@@ -1,5 +1,6 @@
 package com.dekaustubh.bingo.di
 
+import com.dekaustubh.bingo.rooms.create.CreateRoomActivity
 import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.register.RegisterActivity
 import com.dekaustubh.bingo.splash.SplashActivity
@@ -17,4 +18,7 @@ abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract fun contributeRegisterActivity(): RegisterActivity
+
+    @ContributesAndroidInjector()
+    abstract fun contributeCreateRoomActivity(): CreateRoomActivity
 }

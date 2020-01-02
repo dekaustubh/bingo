@@ -1,13 +1,11 @@
 package com.dekaustubh.bingo.apis
 
-import com.dekaustubh.bingo.models.User
+import com.dekaustubh.bingo.models.results.RoomResult
 import com.dekaustubh.bingo.models.results.UserResult
 import com.dekaustubh.bingo.register.LoginRequest
+import com.dekaustubh.bingo.rooms.create.CreateRoomRequest
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface BingoApi {
     @GET("user/{id}")
@@ -15,4 +13,7 @@ interface BingoApi {
 
     @POST("user/register")
     fun registerUser(@Body loginRequest: LoginRequest): Single<UserResult>
+
+    @POST("room/create")
+    fun createRoom(@Header("token") token: String, @Body createRoomRequest: CreateRoomRequest): Single<RoomResult>
 }

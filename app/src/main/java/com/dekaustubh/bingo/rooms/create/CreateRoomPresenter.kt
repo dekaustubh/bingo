@@ -19,16 +19,12 @@ class CreateRoomPresenter @Inject constructor(
                 .observeOn(Schedulers.io())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                    {
-                        val room = it?.room
-                        if (it.error != null) throw Exception(it.error.error)
-                        if (room == null) throw Exception("Error while getting room")
-
+                    { room ->
                         view?.showRoom(room)
                     },
-                    {
-                        Timber.e(it)
-                        view?.showError(it.message.toString())
+                    { e ->
+                        Timber.e(e)
+                        view?.showError(e.message.toString())
                     }
                 )
         )

@@ -4,21 +4,21 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.dekaustubh.bingo.db.entities.User
+import com.dekaustubh.bingo.db.entities.DbUser
 
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user")
-    fun getAll(): List<User>
+    fun getAll(): List<DbUser>
 
     @Query("SELECT * FROM user WHERE id = (:userId)")
-    fun getUserById(userId: Long): User
+    fun getUserById(userId: Long): DbUser
 
     @Insert
-    fun insert(user: User)
+    fun insert(user: DbUser)
 
     @Delete
-    fun delete(user: User)
+    fun delete(user: DbUser)
 
     @Query("DELETE FROM user")
     fun deleteAll()

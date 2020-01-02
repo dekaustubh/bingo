@@ -14,7 +14,8 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         AppModule::class,
         DatabaseModule::class,
-        RetrofitModule::class
+        RetrofitModule::class,
+        RegisterModule::class
     ]
 )
 @Singleton

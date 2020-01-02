@@ -1,6 +1,8 @@
 package com.dekaustubh.bingo.di
 
 import com.dekaustubh.bingo.apis.BingoApi
+import com.dekaustubh.bingo.constants.ApiConstants
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 
@@ -21,14 +23,15 @@ class RetrofitModule {
     @Provides
     fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://google.com/api/v1")
+            .baseUrl(ApiConstants.getBaseUrl())
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(okHttpClient)
             .build()
     }
 
     @Provides
-    fun getOkHttpCleint(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient? {
+    fun getOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .build()

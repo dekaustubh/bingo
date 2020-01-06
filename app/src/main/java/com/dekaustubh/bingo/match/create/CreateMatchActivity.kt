@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo.match
+package com.dekaustubh.bingo.match.create
 
 import android.os.Bundle
 import android.widget.ProgressBar
@@ -6,12 +6,14 @@ import android.widget.TextView
 import butterknife.BindView
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.match.Match
 import com.dekaustubh.bingo.models.Room
 import dagger.android.DaggerActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-class StartMatchActivity : DaggerActivity(), StartMatchContract.View {
+class CreateMatchActivity : DaggerActivity(),
+    CreateMatchContract.View {
 
     @BindView(R.id.progress_bar)
     lateinit var progressBar: ProgressBar
@@ -20,7 +22,7 @@ class StartMatchActivity : DaggerActivity(), StartMatchContract.View {
     lateinit var waitingTextView: TextView
 
     @Inject
-    lateinit var presenter: StartMatchContract.Presenter
+    lateinit var presenter: CreateMatchContract.Presenter
 
     @Inject
     lateinit var toaster: Toaster

@@ -1,7 +1,7 @@
 package com.dekaustubh.bingo.di
 
 import com.dekaustubh.bingo.main.MainActivity
-import com.dekaustubh.bingo.match.StartMatchActivity
+import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.register.LoginFragment
 import com.dekaustubh.bingo.register.RegisterActivity
 import com.dekaustubh.bingo.register.RegisterFragment
@@ -32,5 +32,5 @@ abstract class ActivityBindingModule {
     abstract fun contributeLoginFragment(): LoginFragment
 
     @ContributesAndroidInjector()
-    abstract fun contributeMatchActivity(): StartMatchActivity
+    abstract fun contributeMatchActivity(): CreateMatchActivity
 }

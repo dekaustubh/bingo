@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.match.StartMatchActivity
+import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
 import timber.log.Timber
 import javax.inject.Inject
@@ -50,8 +50,8 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
         holder.startMatchButton.setOnClickListener {
             with(holder.startMatchButton.context) {
                 startActivity(
-                    Intent(this, StartMatchActivity::class.java)
-                        .putExtra(StartMatchActivity.EXTRA_ROOM, list[position])
+                    Intent(this, CreateMatchActivity::class.java)
+                        .putExtra(CreateMatchActivity.EXTRA_ROOM, list[position])
                 )
             }
         }

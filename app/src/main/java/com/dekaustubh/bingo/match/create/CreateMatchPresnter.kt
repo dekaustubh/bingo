@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo.match
+package com.dekaustubh.bingo.match.create
 
 import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.constants.DI
@@ -13,9 +13,9 @@ import javax.inject.Named
 class StartMatchPresenterImpl @Inject constructor(
     private val bingoApi: BingoApi,
     @Named(DI.USER_TOKEN) private val token: String
-) : StartMatchContract.Presenter {
+) : CreateMatchContract.Presenter {
 
-    private var view: StartMatchContract.View? = null
+    private var view: CreateMatchContract.View? = null
     private val disposable = CompositeDisposable()
 
     override fun startMatchForRoom(room: Room) {
@@ -37,7 +37,7 @@ class StartMatchPresenterImpl @Inject constructor(
         )
     }
 
-    override fun attach(view: StartMatchContract.View) {
+    override fun attach(view: CreateMatchContract.View) {
         this.view = view
     }
 

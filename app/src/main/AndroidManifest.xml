@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".match.StartMatchActivity"
+            android:name=".match.create.CreateMatchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".rooms.create.CreateRoomActivity"

@@ -42,6 +42,7 @@ class RegisterPresenter @Inject constructor(
                 .subscribe(
                     { user ->
                         loginPreference.saveLoggedInUser(user.id)
+
                         view?.showUser(user)
                     },
                     { e ->

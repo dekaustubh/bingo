@@ -6,11 +6,11 @@ import com.dekaustubh.bingo.constants.DI.USER_TOKEN
 import com.dekaustubh.bingo.db.BingoDatabase
 import com.dekaustubh.bingo.db.dao.RoomDao
 import com.dekaustubh.bingo.db.dao.UserDao
-import com.dekaustubh.bingo.db.entities.DbUser
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Named
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -41,9 +41,13 @@ class DatabaseModule {
     }
 
     @Provides
-    @Singleton
     @Named(USER_TOKEN)
     fun provideLoggedInUserToken(bingoDatabase: BingoDatabase): String {
-        return bingoDatabase.userDao().getLoggedInUser().token ?: ""
+        return Observable.just(bingoDatabase)
+            .subscribeOn(Schedulers.computation())
+            .map {
+                bingoDatabase.userDao().getLoggedInUser(true).token ?: ""
+            }
+            .blockingFirst()
     }
 }

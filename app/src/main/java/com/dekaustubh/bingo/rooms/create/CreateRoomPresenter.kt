@@ -16,8 +16,8 @@ class CreateRoomPresenter @Inject constructor(
     override fun createRoom(name: String) {
         compositeDisposable.add(
             roomRepository.createRoom(name)
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
                 .subscribe(
                     { room ->
                         view?.showRoom(room)

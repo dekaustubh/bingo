@@ -15,7 +15,8 @@ import javax.inject.Singleton
         AppModule::class,
         DatabaseModule::class,
         RetrofitModule::class,
-        RegisterModule::class
+        RegisterModule::class,
+        RoomModule::class
     ]
 )
 @Singleton

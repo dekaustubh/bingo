@@ -1,6 +1,8 @@
 package com.dekaustubh.bingo.apis
 
+import androidx.room.Room
 import com.dekaustubh.bingo.models.results.RoomResult
+import com.dekaustubh.bingo.models.results.RoomsResult
 import com.dekaustubh.bingo.models.results.UserResult
 import com.dekaustubh.bingo.register.LoginRequest
 import com.dekaustubh.bingo.rooms.create.CreateRoomRequest
@@ -19,4 +21,10 @@ interface BingoApi {
 
     @POST("room/create")
     fun createRoom(@Header("token") token: String, @Body createRoomRequest: CreateRoomRequest): Single<RoomResult>
+
+    @GET("rooms/")
+    fun getRooms(@Header("token") token: String): Single<RoomsResult>
+
+    @GET("room/{id}")
+    fun getRoomById(@Header("token") token: String, @Path("id") id: Long): Single<RoomResult>
 }

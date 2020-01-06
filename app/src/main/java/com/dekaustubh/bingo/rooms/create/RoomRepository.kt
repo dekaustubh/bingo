@@ -12,6 +12,8 @@ import javax.inject.Named
 
 interface RoomRepository {
     fun createRoom(name: String): Single<Room>
+    fun getRoomById(roomId: Long): Single<Room>
+    fun getRooms(): Single<List<Room>>
 }
 
 class RoomRepositoryImpl @Inject constructor(
@@ -29,6 +31,35 @@ class RoomRepositoryImpl @Inject constructor(
                 bingoDatabase.roomDao().insert(room.toDbRoom())
 
                 room
+            }
+    }
+
+    override fun getRoomById(roomId: Long): Single<Room> {
+        return bingoApi.getRoomById(token, roomId)
+            .map {  roomResult ->
+                val room = roomResult.room
+                if (roomResult.error != null) throw Exception(roomResult.error.error)
+                if (room == null) throw java.lang.Exception("Error while getting room")
+
+                bingoDatabase.roomDao().update(room.toDbRoom())
+
+                room
+            }
+    }
+
+    override fun getRooms(): Single<List<Room>> {
+        return bingoApi.getRooms(token)
+            .map { roomsResult ->
+                if (roomsResult.error != null) throw Exception(roomsResult.error.error)
+
+                val rooms = roomsResult.rooms
+                val list = mutableListOf<Room>()
+                rooms.forEach {
+                    bingoDatabase.roomDao().insert(it.toDbRoom())
+                    list.add(it)
+                }
+
+                list
             }
     }
 }

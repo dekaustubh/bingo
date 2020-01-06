@@ -7,3 +7,9 @@ data class RoomResult(
     val success: Success? = null,
     val room: Room?
 )
+
+data class RoomsResult(
+    val error: Error? = null,
+    val success: Success? = null,
+    val rooms: List<Room>
+)

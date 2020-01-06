@@ -1,9 +1,6 @@
 package com.dekaustubh.bingo.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.dekaustubh.bingo.db.entities.DbRoom
 
 @Dao
@@ -14,8 +11,11 @@ interface RoomDao {
     @Query("SELECT * FROM room WHERE id = (:roomId)")
     fun getRoomById(roomId: Long): DbRoom
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(room: DbRoom)
+
+    @Update
+    fun update(room: DbRoom)
 
     @Delete
     fun delete(room: DbRoom)

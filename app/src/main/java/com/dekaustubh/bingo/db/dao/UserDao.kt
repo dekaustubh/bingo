@@ -1,9 +1,6 @@
 package com.dekaustubh.bingo.db.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.dekaustubh.bingo.db.entities.DbUser
 
 @Dao
@@ -17,7 +14,7 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE loggedInUser = (:loggedIn)")
     fun getLoggedInUser(loggedIn: Boolean = true): DbUser
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: DbUser)
 
     @Delete

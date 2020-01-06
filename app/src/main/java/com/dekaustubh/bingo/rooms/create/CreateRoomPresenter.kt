@@ -1,10 +1,10 @@
 package com.dekaustubh.bingo.rooms.create
 
+import com.dekaustubh.bingo.rooms.RoomRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class CreateRoomPresenter @Inject constructor(

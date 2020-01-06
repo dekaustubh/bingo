@@ -15,6 +15,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".rooms.details.RoomDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".match.join.JoinMatchActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -4,8 +4,10 @@ import com.dekaustubh.bingo.register.FetchRoomPresenter
 import com.dekaustubh.bingo.register.FetchRoomsContract
 import com.dekaustubh.bingo.rooms.create.CreateRoomContract
 import com.dekaustubh.bingo.rooms.create.CreateRoomPresenter
-import com.dekaustubh.bingo.rooms.create.RoomRepository
-import com.dekaustubh.bingo.rooms.create.RoomRepositoryImpl
+import com.dekaustubh.bingo.rooms.RoomRepository
+import com.dekaustubh.bingo.rooms.RoomRepositoryImpl
+import com.dekaustubh.bingo.rooms.details.RoomDetailsContract
+import com.dekaustubh.bingo.rooms.details.RoomDetailsPresenter
 import dagger.Binds
 import dagger.Module
 
@@ -19,4 +21,7 @@ abstract class RoomModule {
 
     @Binds
     abstract fun provideFetchRoomPresenter(fetchRoomPresenter: FetchRoomPresenter): FetchRoomsContract.Presenter
+
+    @Binds
+    abstract fun provideRoomDetailPresenter(roomDetailsPresenter: RoomDetailsPresenter): RoomDetailsContract.Presenter
 }

@@ -1,11 +1,11 @@
-package com.dekaustubh.bingo.rooms.create
+package com.dekaustubh.bingo.rooms
 
 import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.constants.DI.USER_TOKEN
 import com.dekaustubh.bingo.db.BingoDatabase
 import com.dekaustubh.bingo.models.Room
-import com.dekaustubh.bingo.models.results.RoomResult
 import com.dekaustubh.bingo.models.toDbRoom
+import com.dekaustubh.bingo.rooms.create.CreateRoomRequest
 import io.reactivex.Single
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,7 +22,9 @@ class RoomRepositoryImpl @Inject constructor(
     private val bingoDatabase: BingoDatabase
 ): RoomRepository {
     override fun createRoom(name: String): Single<Room> {
-        return bingoApi.createRoom(token, CreateRoomRequest(name))
+        return bingoApi.createRoom(token,
+            CreateRoomRequest(name)
+        )
             .map { roomResult ->
                 val room = roomResult.room
                 if (roomResult.error != null) throw Exception(roomResult.error.error)

@@ -12,6 +12,7 @@ import butterknife.ButterKnife
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
+import com.dekaustubh.bingo.rooms.details.RoomDetailsActivity
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -46,6 +47,15 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
         holder.roomNameTextView.text = list[position].name
+
+        holder.itemView.setOnClickListener {
+            with(holder.itemView.context) {
+                startActivity(
+                    Intent(this, RoomDetailsActivity::class.java)
+                        .putExtra(RoomDetailsActivity.EXTRA_ROOM, list[position])
+                )
+            }
+        }
 
         holder.startMatchButton.setOnClickListener {
             with(holder.startMatchButton.context) {

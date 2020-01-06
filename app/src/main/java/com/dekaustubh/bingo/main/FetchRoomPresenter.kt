@@ -1,6 +1,6 @@
 package com.dekaustubh.bingo.register
 
-import com.dekaustubh.bingo.rooms.create.RoomRepository
+import com.dekaustubh.bingo.rooms.RoomRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

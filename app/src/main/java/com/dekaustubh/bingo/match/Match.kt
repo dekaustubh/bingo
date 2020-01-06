@@ -1,8 +1,11 @@
 package com.dekaustubh.bingo.match
 
+import android.os.Parcelable
 import com.dekaustubh.bingo.models.results.Success
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Match(
     val id: Long,
     @SerializedName("room_id")
@@ -13,7 +16,7 @@ data class Match(
     @SerializedName("winner_id")
     val winnerId: Long,
     val status: String
-)
+) : Parcelable
 
 data class TakeTurn(
     val number: Int,
@@ -27,4 +30,10 @@ data class MatchResult(
     val error: Error? = null,
     val success: Success? = null,
     val match: Match?
+)
+
+data class MatchesResult(
+    val error: Error? = null,
+    val success: Success? = null,
+    val matches: List<Match>
 )

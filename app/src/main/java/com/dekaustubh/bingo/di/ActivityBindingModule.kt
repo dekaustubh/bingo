@@ -7,6 +7,7 @@ import com.dekaustubh.bingo.register.LoginFragment
 import com.dekaustubh.bingo.register.RegisterActivity
 import com.dekaustubh.bingo.register.RegisterFragment
 import com.dekaustubh.bingo.rooms.create.CreateRoomActivity
+import com.dekaustubh.bingo.rooms.details.RoomDetailsActivity
 import com.dekaustubh.bingo.splash.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -37,4 +38,7 @@ abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract fun contributeJoinMatchActivity(): JoinMatchActivity
+
+    @ContributesAndroidInjector()
+    abstract fun contributeRoomDetailsActivity(): RoomDetailsActivity
 }

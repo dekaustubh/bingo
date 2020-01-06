@@ -1,8 +1,11 @@
 package com.dekaustubh.bingo.models
 
+import android.os.Parcelable
 import com.dekaustubh.bingo.db.entities.DbRoom
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Room(
     val id: Long,
     val name: String,
@@ -10,7 +13,7 @@ data class Room(
     val leaderboardId: Long?,
     @SerializedName("created_by")
     val createdBy: Long
-)
+) : Parcelable
 
 fun Room.toDbRoom(): DbRoom {
     return DbRoom(

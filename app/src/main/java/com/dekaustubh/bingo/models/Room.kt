@@ -1,11 +1,14 @@
 package com.dekaustubh.bingo.models
 
 import com.dekaustubh.bingo.db.entities.DbRoom
+import com.google.gson.annotations.SerializedName
 
 data class Room(
     val id: Long,
     val name: String,
+    @SerializedName("leaderboard_id")
     val leaderboardId: Long?,
+    @SerializedName("created_by")
     val createdBy: Long
 )
 

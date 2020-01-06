@@ -2,6 +2,11 @@ package com.dekaustubh.bingo.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.dekaustubh.bingo.R
@@ -21,6 +26,15 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
     @Inject
     lateinit var toaster: Toaster
 
+    @Inject
+    lateinit var roomsAdapter: RoomsAdapter
+
+    @BindView(R.id.rooms)
+    lateinit var recyclerView: RecyclerView
+
+    @BindView(R.id.no_rooms)
+    lateinit var noRoomsTextView: TextView
+
     @OnClick(R.id.create_room)
     fun onCreateRoomClicked() {
         startActivity(Intent(this, CreateRoomActivity::class.java))
@@ -30,6 +44,8 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ButterKnife.bind(this)
+
+        initRecyclerView()
     }
 
     override fun onStart() {
@@ -53,12 +69,22 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
             toaster.showToast("No rooms found.")
             return
         }
-        rooms.forEach {
-            Timber.d("Room ==> ${it.name}, ${it.createdBy}")
-        }
+        roomsAdapter.setRooms(rooms)
+        noRoomsTextView.visibility = View.GONE
     }
 
     override fun showError(message: String) {
         toaster.showToast(message)
+    }
+
+    private fun initRecyclerView() {
+        with(recyclerView) {
+            setHasFixedSize(true)
+
+            // use a linear layout manager
+            layoutManager = LinearLayoutManager(this@MainActivity)
+
+            adapter = roomsAdapter
+        }
     }
 }

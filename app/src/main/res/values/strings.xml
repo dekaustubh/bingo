@@ -13,4 +13,6 @@
     <string name="already_have_account">Already have account?</string>
     <string name="login">Login</string>
     <string name="don_t_have_account_register">Don\'t have account. Register!</string>
+    <string name="hint_sample_room">Sample Room</string>
+    <string name="start_new_match">Start new match</string>
 </resources>

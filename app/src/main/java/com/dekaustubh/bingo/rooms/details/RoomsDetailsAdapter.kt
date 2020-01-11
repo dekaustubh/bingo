@@ -1,5 +1,6 @@
 package com.dekaustubh.bingo.rooms.details
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.match.Match
+import com.dekaustubh.bingo.match.join.JoinMatchActivity
 import com.dekaustubh.bingo.models.Room
 import timber.log.Timber
 import javax.inject.Inject
@@ -41,6 +43,15 @@ class RoomsDetailsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsDeta
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         holder.roomNameTextView.text = list[position].status
+
+        holder.itemView.setOnClickListener {
+            with(holder.itemView.context) {
+                startActivity(
+                    Intent(this, JoinMatchActivity::class.java)
+                        .putExtra(JoinMatchActivity.EXTRA_MATCH, list[position])
+                )
+            }
+        }
     }
 
     fun setMatches(rooms: List<Match>) {

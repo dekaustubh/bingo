@@ -37,4 +37,10 @@ interface BingoApi {
 
     @POST("room/{id}/match/create")
     fun startMatchForRoom(@Header("token") token: String, @Path("id") id: Long): Single<MatchResult>
+
+    @PUT("room/{roomId}/match/{matchId}/join")
+    fun joinMatch(@Header("token") token: String, @Path("roomId") roomId: Long, @Path("matchId") matchId: Long): Single<MatchResult>
+
+    @PUT("room/{roomId}/match/{matchId}/dummy")
+    fun dummy(@Header("token") token: String, @Path("roomId") roomId: Long, @Path("matchId") matchId: Long): Single<MatchResult>
 }

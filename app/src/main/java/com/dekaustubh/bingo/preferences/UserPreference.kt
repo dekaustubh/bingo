@@ -6,14 +6,17 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 
-const val LOGIN_PREF = "login"
+const val USER_PREF = "user_pref"
+
+// User related key constants
+private const val LOGGED_IN_USER_ID_KEY = "logged_in_user_id"
 
 @Singleton
-class LoginPreference @Inject constructor(private val context: Context) {
+class UserPreference @Inject constructor(private val context: Context) {
 
 
     private val loginPref: SharedPreferences =
-        context.applicationContext.getSharedPreferences(LOGIN_PREF, 0)
+        context.applicationContext.getSharedPreferences(USER_PREF, 0)
 
 
     /**
@@ -21,15 +24,15 @@ class LoginPreference @Inject constructor(private val context: Context) {
      * @return [true] if user is logged in.
      */
     fun isUsedLoggedIn(): Boolean {
-        return loginPref.getLong("logged_in_user_id", 0) != 0L
+        return !loginPref.getString(LOGGED_IN_USER_ID_KEY, "").isNullOrEmpty()
     }
 
     /**
      * Saves [userId] of logged in user.
      */
-    fun saveLoggedInUser(userId: Long) {
+    fun saveLoggedInUser(userId: String) {
         loginPref.edit()
-            .putLong("logged_in_user_id", userId)
+            .putString(LOGGED_IN_USER_ID_KEY, userId)
             .apply()
     }
 }

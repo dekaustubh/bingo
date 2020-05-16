@@ -1,14 +1,14 @@
 package com.dekaustubh.bingo.register
 
 import com.dekaustubh.bingo.models.User
-import com.dekaustubh.bingo.preferences.LoginPreference
+import com.dekaustubh.bingo.preferences.UserPreference
 import com.google.android.gms.games.PlayersClient
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import javax.inject.Inject
 
 class RegisterPresenter @Inject constructor(
-    private val loginPreference: LoginPreference
+    private val loginPreference: UserPreference
 ) : RegisterContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()

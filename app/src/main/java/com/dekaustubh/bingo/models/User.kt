@@ -3,13 +3,12 @@ package com.dekaustubh.bingo.models
 import com.dekaustubh.bingo.db.entities.DbUser
 
 data class User(
-    val id: Long,
+    val id: String,
     val name: String,
-    val email: String = "",
     val token: String = "",
-    val rooms: List<Room>
+    val rooms: List<Room> = emptyList()
 )
 
 fun User.toDbUser(isLoggedIn: Boolean): DbUser {
-    return DbUser(id, name, email, token, isLoggedIn)
+    return DbUser(id, name, token, isLoggedIn)
 }

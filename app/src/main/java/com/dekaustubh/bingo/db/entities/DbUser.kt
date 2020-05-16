@@ -5,9 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "user")
 data class DbUser(
-    @PrimaryKey val id: Long,
+    @PrimaryKey val id: String,
     val name: String,
-    val email: String,
     val token: String?,
     val loggedInUser: Boolean = false
 )

@@ -21,7 +21,7 @@ class RegisterPresenter @Inject constructor(
                 Timber.d("Got player with name ${it.displayName}")
                 // TODO fetch player
                 view?.showUser(
-                    User(it.playerId.toLong(), it.displayName, "", "", emptyList())
+                    User(it.playerId, it.displayName, "")
                 )
             } ?: view?.showError("Error while retrieving player")
         }

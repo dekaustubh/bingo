@@ -22,9 +22,7 @@ class UserRepositoryImpl @Inject constructor(
                 User(
                     dbUser.id,
                     dbUser.name,
-                    dbUser.email,
-                    dbUser.token ?: "",
-                    emptyList()
+                    dbUser.token ?: ""
                 )
             }
     }
@@ -35,9 +33,7 @@ class UserRepositoryImpl @Inject constructor(
                 User(
                     dbUser.id,
                     dbUser.name,
-                    dbUser.email,
-                    dbUser.token ?: "",
-                    emptyList()
+                    dbUser.token ?: ""
                 )
             }
     }

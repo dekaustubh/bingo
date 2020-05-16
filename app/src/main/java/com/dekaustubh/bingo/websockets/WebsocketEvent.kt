@@ -9,12 +9,12 @@ sealed class WebsocketEvent(
 
 data class UserConnected(
     @SerializedName("user_id")
-    val userId: Long
+    val userId: String
 ): WebsocketEvent(MessageType.CONNECT)
 
 data class UserJoined(
     @SerializedName("user_id")
-    val userId: Long,
+    val userId: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
@@ -23,7 +23,7 @@ data class UserJoined(
 
 data class MatchStarted(
     @SerializedName("user_id")
-    val userId: Long,
+    val userId: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
@@ -32,7 +32,7 @@ data class MatchStarted(
 
 data class TurnTaken(
     @SerializedName("user_id")
-    val userId: Long,
+    val userId: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
@@ -44,7 +44,7 @@ data class TurnTaken(
 
 data class MatchWon(
     @SerializedName("user_id")
-    val userId: Long,
+    val userId: String,
     val points: Int,
     @SerializedName("room_id")
     val roomId: Long

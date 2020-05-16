@@ -109,6 +109,10 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
+    // Google play services
+    implementation "com.google.android.gms:play-services-games:$gms_library_version"
+    implementation "com.google.android.gms:play-services-auth:$gms_library_version"
+
     // ############## Test dependencies. ##############
     // JUnit.
     testImplementation "junit:junit:$junit"

@@ -1,56 +1,30 @@
 package com.dekaustubh.bingo.register
 
+import com.dekaustubh.bingo.models.User
 import com.dekaustubh.bingo.preferences.LoginPreference
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.google.android.gms.games.PlayersClient
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class RegisterPresenter @Inject constructor(
-    private val registerRepository: RegisterRepository,
     private val loginPreference: LoginPreference
 ) : RegisterContract.Presenter {
 
     private val compositeDisposable = CompositeDisposable()
     private var view: RegisterContract.View? = null
 
-    override fun registerUser(name: String, email: String, password: String) {
-        compositeDisposable.add(
-            registerRepository.registerUser(name, email, password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { user ->
-                    loginPreference.saveLoggedInUser(user.id)
-                    view?.showUser(user)
-                },
-                { e ->
-                    Timber.e(e)
-                    view?.showError(e.message ?: "Error while registering user.")
-                }
-            )
-        )
-    }
-
-    override fun loginUser(email: String, password: String) {
-        compositeDisposable.add(
-            registerRepository.loginUser(email, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { user ->
-                        loginPreference.saveLoggedInUser(user.id)
-
-                        view?.showUser(user)
-                    },
-                    { e ->
-                        Timber.e(e)
-                        view?.showError(e.message ?: "Error while registering user.")
-                    }
+    override fun signIn(playersClient: PlayersClient) {
+        playersClient.currentPlayer.addOnCompleteListener { task ->
+            val player = task.result
+            player?.let {
+                Timber.d("Got player with name ${it.displayName}")
+                // TODO fetch player
+                view?.showUser(
+                    User(it.playerId.toLong(), it.displayName, "", "", emptyList())
                 )
-        )
+            } ?: view?.showError("Error while retrieving player")
+        }
     }
 
     override fun attach(view: RegisterContract.View) {

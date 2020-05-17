@@ -25,9 +25,28 @@ android {
             }
         }
     }
-    buildTypes {
+    signingConfigs {
+        debug {
+            storeFile file("../keystore")
+            storePassword "dekaustubh"
+            keyAlias "bingo-store"
+            keyPassword "dekaustubh"
+        }
         release {
+            storeFile file("../keystore")
+            storePassword "dekaustubh"
+            keyAlias "bingo-store"
+            keyPassword "dekaustubh"
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
             minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

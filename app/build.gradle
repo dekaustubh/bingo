@@ -112,6 +112,7 @@ dependencies {
     // Google play services
     implementation "com.google.android.gms:play-services-games:19.0.0"
     implementation "com.google.android.gms:play-services-auth:$gms_library_version"
+    implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
 
     // ############## Test dependencies. ##############
     // JUnit.

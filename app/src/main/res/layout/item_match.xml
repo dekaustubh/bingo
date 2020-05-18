@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/match_name"
+        android:id="@+id/matchName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/hint_sample_room"

@@ -6,11 +6,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.register.FetchRoomsContract
 import com.dekaustubh.bingo.rooms.create.CreateRoomActivity
@@ -29,22 +27,16 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
     @Inject
     lateinit var roomsAdapter: RoomsAdapter
 
-    @BindView(R.id.rooms)
-    lateinit var recyclerView: RecyclerView
-
-    @BindView(R.id.no_rooms)
-    lateinit var noRoomsTextView: TextView
-
-    @OnClick(R.id.create_room)
-    fun onCreateRoomClicked() {
-        startActivity(Intent(this, CreateRoomActivity::class.java))
-    }
+    private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
+        binding?.createRoomView?.setOnClickListener {
+            startActivity(Intent(this, CreateRoomActivity::class.java))
+        }
         initRecyclerView()
     }
 
@@ -60,6 +52,11 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
         presenter.detach()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     override fun showRoom(room: Room) {
         Timber.d("Room ==> ${room.name}, ${room.createdBy}")
     }
@@ -70,7 +67,7 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
             return
         }
         roomsAdapter.setRooms(rooms)
-        noRoomsTextView.visibility = View.GONE
+        binding?.noRoomsTextView?.visibility = View.GONE
     }
 
     override fun showError(message: String) {
@@ -78,7 +75,7 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
     }
 
     private fun initRecyclerView() {
-        with(recyclerView) {
+        with(binding?.roomsList!!) {
             setHasFixedSize(true)
 
             // use a linear layout manager

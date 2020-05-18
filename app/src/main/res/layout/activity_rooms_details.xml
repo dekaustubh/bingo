@@ -7,7 +7,7 @@
     tools:context=".rooms.details.RoomDetailsActivity">
 
     <TextView
-        android:id="@+id/no_matches"
+        android:id="@+id/noMatchesView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/no_matches_for_this_room"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/matches"
+        android:id="@+id/matchesList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"

@@ -4,12 +4,9 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.dekaustubh.bingo.R
+import com.dekaustubh.bingo.databinding.ItemRoomBinding
 import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.rooms.details.RoomDetailsActivity
@@ -22,15 +19,7 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
     private val list = mutableListOf<Room>()
 
     class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @BindView(R.id.room_name)
-        lateinit var roomNameTextView: TextView
-
-        @BindView(R.id.start_match)
-        lateinit var startMatchButton: Button
-
-        init {
-            ButterKnife.bind(this, itemView)
-        }
+        val binding: ItemRoomBinding = ItemRoomBinding.bind(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoomViewHolder {
@@ -46,7 +35,7 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
     }
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
-        holder.roomNameTextView.text = list[position].name
+        holder.binding.roomNameText.text = list[position].name
 
         holder.itemView.setOnClickListener {
             with(holder.itemView.context) {
@@ -57,8 +46,8 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
             }
         }
 
-        holder.startMatchButton.setOnClickListener {
-            with(holder.startMatchButton.context) {
+        holder.binding.startMatch.setOnClickListener {
+            with(holder.binding.startMatch.context) {
                 startActivity(
                     Intent(this, CreateMatchActivity::class.java)
                         .putExtra(CreateMatchActivity.EXTRA_ROOM, list[position])

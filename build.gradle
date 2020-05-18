@@ -17,7 +17,6 @@ buildscript {
         rx_android = '2.1.1'
         rx_java = '2.2.16'
         room_version = '2.2.3'
-        butterknife_version = '10.2.1'
         lifecycle_version = '2.1.0'
         gson_version = '2.8.6'
         retrofit_gson_version = '2.7.0'

@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/room_name"
+        android:id="@+id/roomNameText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/hint_sample_room"
@@ -16,12 +16,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/start_match"
+        android:id="@+id/startMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="@string/start_new_match"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/room_name" />
+        app:layout_constraintTop_toBottomOf="@id/roomNameText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.Toaster
 import com.dekaustubh.bingo.databinding.FragmentRegisterBinding

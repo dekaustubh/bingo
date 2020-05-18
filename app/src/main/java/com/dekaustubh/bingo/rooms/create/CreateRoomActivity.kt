@@ -2,19 +2,15 @@ package com.dekaustubh.bingo.rooms.create
 
 import android.os.Bundle
 import android.widget.EditText
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.databinding.ActivityCreateRoomBinding
+import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.models.Room
 import dagger.android.DaggerActivity
 import javax.inject.Inject
 
 class CreateRoomActivity : DaggerActivity(), CreateRoomContract.View {
-
-    @BindView(R.id.name)
-    lateinit var roomNameEditText: EditText
 
     @Inject
     lateinit var toaster: Toaster
@@ -22,15 +18,16 @@ class CreateRoomActivity : DaggerActivity(), CreateRoomContract.View {
     @Inject
     lateinit var presenter: CreateRoomContract.Presenter
 
-    @OnClick(R.id.create)
-    fun onCreateRoomClicked() {
-        presenter.createRoom(roomNameEditText.text.toString())
-    }
+    private var binding: ActivityCreateRoomBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_room)
-        ButterKnife.bind(this)
+        binding = ActivityCreateRoomBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
+
+        binding?.create?.setOnClickListener {
+            presenter.createRoom(binding?.name.toString())
+        }
     }
 
     override fun onStart() {

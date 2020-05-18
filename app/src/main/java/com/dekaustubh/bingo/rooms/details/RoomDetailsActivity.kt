@@ -1,19 +1,11 @@
 package com.dekaustubh.bingo.rooms.details
 
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.Toaster
-import com.dekaustubh.bingo.main.RoomsAdapter
+import com.dekaustubh.bingo.databinding.ActivityRoomsDetailsBinding
 import com.dekaustubh.bingo.match.Match
 import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
-import com.dekaustubh.bingo.register.FetchRoomsContract
 import dagger.android.DaggerActivity
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,18 +21,14 @@ class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
     @Inject
     lateinit var roomDetailsAdapter: RoomsDetailsAdapter
 
-    @BindView(R.id.matches)
-    lateinit var recyclerView: RecyclerView
-
-    @BindView(R.id.no_matches)
-    lateinit var noMatchesTextView: TextView
+    private var binding: ActivityRoomsDetailsBinding? = null
 
     var room: Room? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_rooms_details)
-        ButterKnife.bind(this)
+        binding = ActivityRoomsDetailsBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
 
         initRecyclerView()
 
@@ -64,7 +52,7 @@ class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
             Timber.d("Match => ${it.id}")
         }
         roomDetailsAdapter.setMatches(matches)
-        noMatchesTextView.visibility = View.GONE
+        //noMatchesTextView.visibility = View.GONE
     }
 
     override fun showError(message: String) {
@@ -72,14 +60,14 @@ class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
     }
 
     private fun initRecyclerView() {
-        with(recyclerView) {
+        /*with(recyclerView) {
             setHasFixedSize(true)
 
             // use a linear layout manager
             layoutManager = LinearLayoutManager(this@RoomDetailsActivity)
 
             adapter = roomDetailsAdapter
-        }
+        }*/
     }
 
     companion object {

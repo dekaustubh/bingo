@@ -59,6 +59,11 @@ android {
             includeAndroidResources = true
         }
     }
+    android {
+        viewBinding {
+            enabled = true
+        }
+    }
 }
 
 kapt {

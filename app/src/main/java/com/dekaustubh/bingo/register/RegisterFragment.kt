@@ -9,6 +9,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.databinding.FragmentRegisterBinding
 import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.models.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -38,10 +39,7 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
-    @OnClick(R.id.sign_in_button)
-    fun onRegisterClicked() {
-        startSignInIntent()
-    }
+    private var binding: FragmentRegisterBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,9 +52,11 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
         auth = FirebaseAuth.getInstance()
 
-        return inflater.inflate(R.layout.fragment_register, container, false).also {
-            ButterKnife.bind(this, it)
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        binding?.register?.setOnClickListener {
+            startSignInIntent()
         }
+        return binding?.root
     }
 
     override fun onStart() {
@@ -67,6 +67,11 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     override fun onStop() {
         super.onStop()
         presenter.detach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 
     override fun showUser(user: User) {

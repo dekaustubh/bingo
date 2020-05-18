@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.databinding.FragmentRegisterBinding
+import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.models.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -91,13 +91,11 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Timber.d("OnActivity result!!! $data")
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.result
-                Timber.d("firebaseAuthWithGoogle: ${account?.id}")
                 val user = FirebaseAuth.getInstance().currentUser
                 Timber.d("User ${user?.uid} : ${user?.displayName}")
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)

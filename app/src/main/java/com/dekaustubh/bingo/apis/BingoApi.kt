@@ -17,6 +17,9 @@ interface BingoApi {
     @POST("user/register")
     fun registerUser(@Body loginRequest: LoginRequest): Single<UserResult>
 
+    @PUT("user/device")
+    fun updateDevice(@Header("device_id") deviceId: String, @Header("token") token: String): Single<UserResult>
+
     @POST("room/create")
     fun createRoom(@Header("token") token: String, @Body createRoomRequest: CreateRoomRequest): Single<RoomResult>
 

@@ -5,12 +5,10 @@ import android.os.Bundle
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.main.MainActivity
-import com.dekaustubh.bingo.preferences.UserPreference
 import com.dekaustubh.bingo.register.RegisterActivity
 import dagger.android.DaggerActivity
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SplashActivity : DaggerActivity(), SplashContract.View {

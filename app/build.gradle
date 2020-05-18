@@ -73,22 +73,22 @@ kapt {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:$androidx"
     implementation "androidx.core:core-ktx:$androidx"
     implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_core"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_core"
 
     // Support
     implementation "com.android.support:recyclerview-v7:$recyclerview"
 
     // AndroidX appcomponent
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.appcompat:appcompat:$androidx"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraint_layout"
 
     // Firebase
     implementation "com.crashlytics.sdk.android:crashlytics:$crashlytics_version"
     implementation "com.google.firebase:firebase-analytics:$firebase_analytics"
+    implementation "com.google.firebase:firebase-messaging:$firebase_messaging"
 
     // DI
     implementation "com.google.dagger:dagger-android:$dagger_version"
@@ -108,7 +108,7 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-jackson:$retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_gson_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
-    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$rx2_adapter"
 
     // Gson
     implementation "com.google.code.gson:gson:$gson_version"
@@ -121,17 +121,17 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android"
 
     // Room
-    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-runtime:$room_version_runtime"
     kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version_runtime"
 
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
     // Google play services
-    implementation "com.google.android.gms:play-services-games:19.0.0"
+    implementation "com.google.android.gms:play-services-games:$play_services_games"
     implementation "com.google.android.gms:play-services-auth:$gms_library_version"
-    implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
+    implementation "com.google.firebase:firebase-auth-ktx:$firebase_auth_ktx"
 
     // ############## Test dependencies. ##############
     // JUnit.

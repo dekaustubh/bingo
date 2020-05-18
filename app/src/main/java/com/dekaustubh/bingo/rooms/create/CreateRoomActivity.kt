@@ -1,11 +1,8 @@
 package com.dekaustubh.bingo.rooms.create
 
 import android.os.Bundle
-import android.widget.EditText
-import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.databinding.ActivityCreateRoomBinding
-import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.models.Room
 import dagger.android.DaggerActivity
 import javax.inject.Inject

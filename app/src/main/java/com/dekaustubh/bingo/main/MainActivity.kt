@@ -3,10 +3,7 @@ package com.dekaustubh.bingo.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.models.Room

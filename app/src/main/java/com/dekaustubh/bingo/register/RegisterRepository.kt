@@ -7,31 +7,23 @@ import com.dekaustubh.bingo.models.toDbUser
 import io.reactivex.Single
 import javax.inject.Inject
 
+/**
+ * Register/Login user related repository.
+ * Fetches data from server & then saves it in local db.
+ */
 interface RegisterRepository {
-    fun registerUser(name: String, email: String, password: String): Single<User>
-    fun loginUser(email: String, password: String): Single<User>
+    fun registerUser(userId: String, name: String): Single<User>
 }
 
 class RegisterRepositoryImpl @Inject constructor(
     private val bingoApi: BingoApi,
     private val bingoDatabase: BingoDatabase
 ) : RegisterRepository {
-    override fun registerUser(name: String, email: String, password: String): Single<User> {
-        return bingoApi.registerUser(LoginRequest(name, email, password))
+    override fun registerUser(userId: String, name: String): Single<User> {
+        return bingoApi.registerUser(LoginRequest(userId, name))
             .map { userResult ->
                 if (userResult.error != null) throw Exception(userResult.error.error)
                 val user = userResult.user ?: throw Exception("Error while registering")
-
-                bingoDatabase.userDao().insert(user.toDbUser(true))
-                user
-            }
-    }
-
-    override fun loginUser(email: String, password: String): Single<User> {
-        return bingoApi.loginUser(LoginRequest(null, email, password))
-            .map { userResult ->
-                if (userResult.error != null) throw Exception(userResult.error.error)
-                val user = userResult.user ?: throw Exception("Error while login")
 
                 bingoDatabase.userDao().insert(user.toDbUser(true))
                 user

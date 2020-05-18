@@ -1,7 +1,9 @@
 package com.dekaustubh.bingo.register
 
+/**
+ * Class for sending json data to register/login API.
+ */
 data class LoginRequest(
-    val name: String?,
-    val email: String,
-    val password: String
+    val userI: String,
+    val name: String?
 )

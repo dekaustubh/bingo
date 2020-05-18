@@ -78,6 +78,10 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
         TODO("Not yet implemented")
     }
 
+    override fun hideProgressBar() {
+        // TODO.
+    }
+
     override fun showError(message: String) {
         toaster.showToast(message)
     }
@@ -122,7 +126,7 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
                 if (task.isSuccessful) {
                     // User received successfully!
                     auth.currentUser?.let {
-                        presenter.saveUserPreference(it)
+                        presenter.registerUser(it.uid, it.displayName ?: "User")
                     }
                 } else {
                     toaster.showToast("Auth failed")

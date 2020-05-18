@@ -46,7 +46,7 @@ class DatabaseModule {
         return Observable.just(bingoDatabase)
             .subscribeOn(Schedulers.computation())
             .map {
-                bingoDatabase.userDao().getLoggedInUser(true).token ?: ""
+                bingoDatabase.userDao().getLoggedInUser(true)?.token ?: ""
             }
             .blockingFirst()
     }

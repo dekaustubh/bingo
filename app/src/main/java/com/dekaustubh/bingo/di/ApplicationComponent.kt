@@ -16,6 +16,7 @@ import javax.inject.Singleton
         DatabaseModule::class,
         RetrofitModule::class,
         RegisterModule::class,
+        SplashModule::class,
         RoomModule::class,
         MatchModule::class,
         RepositoryModule::class,

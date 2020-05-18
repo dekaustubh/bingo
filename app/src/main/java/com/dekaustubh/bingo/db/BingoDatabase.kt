@@ -14,10 +14,3 @@ abstract class BingoDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun roomDao(): RoomDao
 }
-
-suspend fun BingoDatabase.loggedInUser(): DbUser {
-    return coroutineScope {
-        val deferredValue = async { userDao().getLoggedInUser() }
-        deferredValue.await()
-    }
-}

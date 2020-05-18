@@ -3,9 +3,6 @@ package com.dekaustubh.bingo.match.join
 import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.common.UserRepository
 import com.dekaustubh.bingo.constants.DI
-import com.dekaustubh.bingo.db.BingoDatabase
-import com.dekaustubh.bingo.db.loggedInUser
-import com.dekaustubh.bingo.register.RegisterRepository
 import com.dekaustubh.bingo.websockets.BingoSocketListener
 import com.dekaustubh.bingo.websockets.UserConnected
 import com.dekaustubh.bingo.websockets.WebSocketCloseCode
@@ -98,7 +95,7 @@ class JoinMatchPresenter @Inject constructor(
 
         Timber.d("Connected to socket")
         disposable.add(
-            userRepository.getUserLoggedInUser()
+            userRepository.getLoggedInUser()
                 .map { user ->
                     Timber.d("Got user ${user.id}")
                     webSocketHelper.send(

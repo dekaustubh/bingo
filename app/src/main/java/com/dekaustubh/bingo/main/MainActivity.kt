@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.register.FetchRoomsContract

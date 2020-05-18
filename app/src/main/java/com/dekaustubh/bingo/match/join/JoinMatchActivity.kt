@@ -2,7 +2,7 @@ package com.dekaustubh.bingo.match.join
 
 import android.os.Bundle
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.match.Match
 import dagger.android.DaggerActivity
 import timber.log.Timber

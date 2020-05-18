@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.databinding.FragmentRegisterBinding
 import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.models.User

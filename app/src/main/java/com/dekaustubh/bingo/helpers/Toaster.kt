@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo
+package com.dekaustubh.bingo.helpers
 
 import android.content.Context
 import android.widget.Toast

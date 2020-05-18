@@ -3,7 +3,7 @@ package com.dekaustubh.bingo.splash
 import android.content.Intent
 import android.os.Bundle
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.Toaster
+import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.preferences.UserPreference
 import com.dekaustubh.bingo.register.RegisterActivity

@@ -6,7 +6,7 @@ object ApiConstants {
 
     fun getBaseUrl(): String {
         return if (BuildConfig.DEBUG) {
-            "https://eca67d56.ngrok.io/api/v1/"
+            "https://782fbdab.ngrok.io/api/v1/"
         } else {
             ""
         }

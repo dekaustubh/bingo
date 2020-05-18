@@ -78,11 +78,11 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
     }
 
     override fun showProgressBar() {
-        TODO("Not yet implemented")
+
     }
 
     override fun hideProgressBar() {
-        // TODO.
+
     }
 
     override fun showError(message: String) {
@@ -103,15 +103,17 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
                 val account = task.result
                 Timber.d("firebaseAuthWithGoogle: ${account?.id}")
                 val user = FirebaseAuth.getInstance().currentUser
-                Timber.d("User ${user?.uid}")
+                Timber.d("User ${user?.uid} : ${user?.displayName}")
                 val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
                 auth.signInWithCredential(credential)
-                    .addOnCompleteListener(requireActivity()) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, get user from the account.
-                            firebaseAuthWithPlayGames(account!!)
+                    .addOnCompleteListener(requireActivity()) { t ->
+                        if (t.isSuccessful) {
+                            // User received successfully!
+                            auth.currentUser?.let {
+                                presenter.registerUser(it.uid, it.displayName ?: "User")
+                            }
                         } else {
-                            Timber.e("Task execution failed...")
+                            toaster.showToast("Auth failed")
                         }
                     }
             } catch (e: ApiException) {
@@ -119,22 +121,6 @@ class RegisterFragment : DaggerFragment(), RegisterContract.View {
                 Timber.e(e, "Google sign in failed")
             }
         }
-    }
-
-    private fun firebaseAuthWithPlayGames(acct: GoogleSignInAccount) {
-        val auth = Firebase.auth
-        val credential = PlayGamesAuthProvider.getCredential(acct.idToken!!)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // User received successfully!
-                    auth.currentUser?.let {
-                        presenter.registerUser(it.uid, it.displayName ?: "User")
-                    }
-                } else {
-                    toaster.showToast("Auth failed")
-                }
-            }
     }
 
     companion object {

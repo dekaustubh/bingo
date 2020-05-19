@@ -1,5 +1,7 @@
 package com.dekaustubh.bingo.di
 
+import com.dekaustubh.bingo.main.MainContract
+import com.dekaustubh.bingo.main.MainPresenter
 import com.dekaustubh.bingo.register.FetchRoomPresenter
 import com.dekaustubh.bingo.register.FetchRoomsContract
 import com.dekaustubh.bingo.rooms.create.CreateRoomContract
@@ -24,4 +26,7 @@ abstract class RoomModule {
 
     @Binds
     abstract fun provideRoomDetailPresenter(roomDetailsPresenter: RoomDetailsPresenter): RoomDetailsContract.Presenter
+
+    @Binds
+    abstract fun provideMainPresenter(mainPresenter: MainPresenter): MainContract.Presenter
 }

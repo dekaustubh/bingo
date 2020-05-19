@@ -37,6 +37,11 @@ class CreateRoomActivity : DaggerActivity(), CreateRoomContract.View {
         presenter.detach()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
     override fun showRoom(room: Room) {
         toaster.showToast("Room ${room.name} created successfully!")
 

@@ -4,6 +4,7 @@ import com.dekaustubh.bingo.db.BingoDatabase
 import com.dekaustubh.bingo.db.entities.DbUser
 import com.dekaustubh.bingo.models.User
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,15 +22,10 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
 
     override fun getLoggedInUser(): Single<User?> {
-        var dbUser : DbUser? = null
-        CoroutineScope(Dispatchers.IO).launch {
-            dbUser = bingoDatabase.userDao().getLoggedInUser()
-        }
-        return if (dbUser == null) {
-            Single.error(Throwable("User not logged in"))
-        } else {
-            Single.just(User(dbUser!!.id, dbUser!!.name, dbUser!!.token ?: ""))
-        }
+        return Single.fromCallable {
+            val dbUser = bingoDatabase.userDao().getLoggedInUser()
+            User(dbUser?.id ?: "", dbUser?.name ?: "", dbUser?.token ?: "")
+        }.subscribeOn(Schedulers.computation())
     }
 
     override fun getUserById(id: Long): Single<User?> {

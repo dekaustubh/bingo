@@ -9,6 +9,7 @@ import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.register.FetchRoomsContract
 import com.dekaustubh.bingo.rooms.create.CreateRoomActivity
+import com.dekaustubh.bingo.websockets.WebSocketCloseCode
 import dagger.android.DaggerActivity
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,6 +18,8 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
 
     @Inject
     lateinit var presenter: FetchRoomsContract.Presenter
+    @Inject
+    lateinit var mainPresenter: MainContract.Presenter
 
     @Inject
     lateinit var toaster: Toaster
@@ -42,11 +45,13 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
         presenter.attach(this)
 
         presenter.fetchRooms()
+        mainPresenter.connectToWebSocket()
     }
 
     override fun onStop() {
         super.onStop()
         presenter.detach()
+        mainPresenter.disconnectToWebSocket(WebSocketCloseCode.NORMAL)
     }
 
     override fun onDestroy() {

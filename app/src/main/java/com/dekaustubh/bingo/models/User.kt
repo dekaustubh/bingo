@@ -12,3 +12,7 @@ data class User(
 fun User.toDbUser(isLoggedIn: Boolean): DbUser {
     return DbUser(id, name, token, isLoggedIn)
 }
+
+object NO_USER {
+    fun get(): User = User("", "", "")
+}

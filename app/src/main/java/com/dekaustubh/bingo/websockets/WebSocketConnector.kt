@@ -1,5 +1,6 @@
 package com.dekaustubh.bingo.websockets
 
+import com.dekaustubh.bingo.constants.ApiConstants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
@@ -19,7 +20,7 @@ class WebSocketConnector @Inject constructor(
     private var isConnected = false
 
     fun connect() {
-        val request = Request.Builder().url("ws://eca67d56.ngrok.io/connect").build()
+        val request = Request.Builder().url("ws://$BASE_URL/ws").build()
 
         if (isConnected) {
             Timber.w("Socket is already connected")

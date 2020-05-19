@@ -22,7 +22,11 @@ class SplashPresenter @Inject constructor(
             .subscribe(
                 {
                     it?.let {
-                        view?.showHomeScreen()
+                        if (it.id.isEmpty()) {
+                            view?.showRegisterScreen()
+                        } else {
+                            view?.showHomeScreen()
+                        }
                     } ?: view?.showRegisterScreen()
                 },
                 {

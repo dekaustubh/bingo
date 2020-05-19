@@ -1,23 +1,23 @@
 package com.dekaustubh.bingo.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.databinding.ActivityMainBinding
+import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.register.FetchRoomsContract
-import com.dekaustubh.bingo.rooms.create.CreateRoomActivity
+import com.dekaustubh.bingo.rooms.create.CreateRoomDialogFragment
 import com.dekaustubh.bingo.websockets.WebSocketCloseCode
-import dagger.android.DaggerActivity
+import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : DaggerActivity(), FetchRoomsContract.View {
+class MainActivity : DaggerAppCompatActivity(), FetchRoomsContract.View {
 
     @Inject
     lateinit var presenter: FetchRoomsContract.Presenter
+
     @Inject
     lateinit var mainPresenter: MainContract.Presenter
 
@@ -35,7 +35,8 @@ class MainActivity : DaggerActivity(), FetchRoomsContract.View {
         setContentView(binding?.root)
 
         binding?.createRoomView?.setOnClickListener {
-            startActivity(Intent(this, CreateRoomActivity::class.java))
+            val dialog = CreateRoomDialogFragment.newInstance()
+            dialog.show(supportFragmentManager, "CreateRoomDialogFragment")
         }
         initRecyclerView()
     }

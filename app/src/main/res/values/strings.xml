@@ -19,5 +19,8 @@
     <string name="waiting_for_people_to_join">Waiting for people to join</string>
     <string name="no_matches_for_this_room">No matches for this room</string>
 
+    <string name="create_room_dialog_create">Create</string>
+    <string name="create_room_dialog_cancel">Cancel</string>
+
     <string name="web_client_id">714178780957-vhvvbdaeekvtm4gglngkq8tpvb58luv8.apps.googleusercontent.com</string>
 </resources>

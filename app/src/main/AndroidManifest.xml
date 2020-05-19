@@ -31,7 +31,7 @@
             android:name=".match.create.CreateMatchActivity"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".rooms.create.CreateRoomActivity"
+            android:name=".rooms.create.CreateRoomDialogFragment"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".splash.SplashActivity"

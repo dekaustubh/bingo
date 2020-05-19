@@ -5,7 +5,7 @@ import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.match.join.JoinMatchActivity
 import com.dekaustubh.bingo.register.RegisterActivity
 import com.dekaustubh.bingo.register.RegisterFragment
-import com.dekaustubh.bingo.rooms.create.CreateRoomActivity
+import com.dekaustubh.bingo.rooms.create.CreateRoomDialogFragment
 import com.dekaustubh.bingo.rooms.details.RoomDetailsActivity
 import com.dekaustubh.bingo.services.BingoFirebaseMessagingService
 import com.dekaustubh.bingo.splash.SplashActivity
@@ -25,7 +25,7 @@ abstract class ActivityBindingModule {
     abstract fun contributeRegisterActivity(): RegisterActivity
 
     @ContributesAndroidInjector()
-    abstract fun contributeCreateRoomActivity(): CreateRoomActivity
+    abstract fun contributeCreateRoomActivity(): CreateRoomDialogFragment
 
     @ContributesAndroidInjector()
     abstract fun contributeRegisterFragment(): RegisterFragment

@@ -9,7 +9,7 @@ data class DbRoom(
     @PrimaryKey val id: Long,
     val name: String,
     @ColumnInfo(name = "leaderboard_id")
-    val leaderboardId: Long?,
+    val leaderboardId: String?,
     @ColumnInfo(name= "created_by")
-    val createdBy: Long
+    val createdBy: String
 )

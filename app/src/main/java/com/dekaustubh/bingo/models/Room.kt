@@ -11,9 +11,9 @@ data class Room(
     val id: Long,
     val name: String,
     @SerializedName("leaderboard_id")
-    val leaderboardId: Long?,
+    val leaderboardId: String?,
     @SerializedName("created_by")
-    val createdBy: Long,
+    val createdBy: String,
     val matches: List<Match>?
 ) : Parcelable
 

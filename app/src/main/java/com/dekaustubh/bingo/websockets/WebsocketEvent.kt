@@ -1,5 +1,6 @@
 package com.dekaustubh.bingo.websockets
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.annotations.SerializedName
 
 sealed class WebsocketEvent(
@@ -21,13 +22,26 @@ data class UserJoined(
     val matchId: Long
 ) : WebsocketEvent(MessageType.JOIN)
 
+data class MatchCreated(
+    @JsonProperty("user_id")
+    val userId: String,
+    @JsonProperty("user_name")
+    val userName: String,
+    @JsonProperty("match_id")
+    val matchId: Long,
+    @JsonProperty("room_id")
+    val roomId: Long
+) : WebsocketEvent(MessageType.MATCH_CREATE)
+
 data class MatchStarted(
     @SerializedName("user_id")
     val userId: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
-    val matchId: Long
+    val matchId: Long,
+    @JsonProperty("room_id")
+    val roomId: Long
 ) : WebsocketEvent(MessageType.START)
 
 data class TurnTaken(

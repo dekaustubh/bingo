@@ -30,7 +30,7 @@ class CreateRoomDialogFragment : DaggerDialogFragment(), CreateRoomContract.View
         binding = FragmentCreateRoomBinding.inflate(inflater, container, false)
 
         binding?.create?.setOnClickListener {
-            presenter.createRoom(binding?.name.toString())
+            presenter.createRoom(binding?.name?.text.toString())
         }
 
         binding?.cancel?.setOnClickListener {

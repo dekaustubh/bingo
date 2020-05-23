@@ -22,7 +22,7 @@
             android:value="@integer/google_play_services_version"/>
 
         <activity
-            android:name=".rooms.details.RoomDetailsActivity"
+            android:name=".rooms.details.RoomDetailsFragment"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".match.join.JoinMatchActivity"

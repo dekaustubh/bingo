@@ -11,10 +11,10 @@ data class Match(
     @SerializedName("room_id")
     val roomId: Long,
     @SerializedName("created_by")
-    val createdBy: Long,
-    val players: MutableList<Long>,
+    val createdBy: String,
+    val players: MutableList<String>,
     @SerializedName("winner_id")
-    val winnerId: Long,
+    val winnerId: String,
     val status: String
 ) : Parcelable
 

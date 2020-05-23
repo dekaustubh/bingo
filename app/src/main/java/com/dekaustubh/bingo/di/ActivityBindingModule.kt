@@ -1,12 +1,13 @@
 package com.dekaustubh.bingo.di
 
 import com.dekaustubh.bingo.main.MainActivity
+import com.dekaustubh.bingo.main.MainFragment
 import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.match.join.JoinMatchActivity
 import com.dekaustubh.bingo.register.RegisterActivity
 import com.dekaustubh.bingo.register.RegisterFragment
 import com.dekaustubh.bingo.rooms.create.CreateRoomDialogFragment
-import com.dekaustubh.bingo.rooms.details.RoomDetailsActivity
+import com.dekaustubh.bingo.rooms.details.RoomDetailsFragment
 import com.dekaustubh.bingo.services.BingoFirebaseMessagingService
 import com.dekaustubh.bingo.splash.SplashActivity
 import dagger.Module
@@ -17,6 +18,9 @@ abstract class ActivityBindingModule {
 
     @ContributesAndroidInjector()
     abstract fun contributeMainActivity(): MainActivity
+
+    @ContributesAndroidInjector()
+    abstract fun contributeMainFragment(): MainFragment
 
     @ContributesAndroidInjector()
     abstract fun contributeSplashActivity(): SplashActivity
@@ -37,7 +41,7 @@ abstract class ActivityBindingModule {
     abstract fun contributeJoinMatchActivity(): JoinMatchActivity
 
     @ContributesAndroidInjector()
-    abstract fun contributeRoomDetailsActivity(): RoomDetailsActivity
+    abstract fun contributeRoomDetailsFragment(): RoomDetailsFragment
 
     @ContributesAndroidInjector()
     abstract fun contributeBingoFirebaseMessagingService(): BingoFirebaseMessagingService

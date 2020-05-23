@@ -1,16 +1,20 @@
 package com.dekaustubh.bingo.rooms.details
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.dekaustubh.bingo.databinding.FragmentRoomsDetailsBinding
 import com.dekaustubh.bingo.helpers.Toaster
-import com.dekaustubh.bingo.databinding.ActivityRoomsDetailsBinding
 import com.dekaustubh.bingo.match.Match
 import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
-import dagger.android.DaggerActivity
+import dagger.android.support.DaggerFragment
 import timber.log.Timber
 import javax.inject.Inject
 
-class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
+class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
 
     @Inject
     lateinit var presenter: RoomDetailsContract.Presenter
@@ -21,19 +25,25 @@ class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
     @Inject
     lateinit var roomDetailsAdapter: RoomsDetailsAdapter
 
-    private var binding: ActivityRoomsDetailsBinding? = null
+    private var binding: FragmentRoomsDetailsBinding? = null
 
     var room: Room? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRoomsDetailsBinding.inflate(layoutInflater)
-        setContentView(binding?.root)
 
+        room = arguments?.getParcelable(CreateMatchActivity.EXTRA_ROOM)
+            ?: throw IllegalArgumentException("Room extra must be present")
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentRoomsDetailsBinding.inflate(layoutInflater)
         initRecyclerView()
-
-        if (!intent.hasExtra(EXTRA_ROOM)) throw RuntimeException("Room extra must be present!!")
-        room = intent.getParcelableExtra(CreateMatchActivity.EXTRA_ROOM)
+        return binding?.root
     }
 
     override fun onStart() {
@@ -52,7 +62,6 @@ class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
             Timber.d("Match => ${it.id}")
         }
         roomDetailsAdapter.setMatches(matches)
-        //noMatchesTextView.visibility = View.GONE
     }
 
     override fun showError(message: String) {
@@ -60,17 +69,25 @@ class RoomDetailsActivity : DaggerActivity(), RoomDetailsContract.View {
     }
 
     private fun initRecyclerView() {
-        /*with(recyclerView) {
+        with(binding?.matchesList!!) {
             setHasFixedSize(true)
 
             // use a linear layout manager
-            layoutManager = LinearLayoutManager(this@RoomDetailsActivity)
+            layoutManager = LinearLayoutManager(this@RoomDetailsFragment.requireContext())
 
             adapter = roomDetailsAdapter
-        }*/
+        }
     }
 
     companion object {
         const val EXTRA_ROOM = "extra_room"
+        const val TAG = "RoomDetailsFragment"
+
+        fun newInstance(room: Room) = RoomDetailsFragment().apply {
+            val bundle = Bundle().apply {
+                putParcelable(EXTRA_ROOM, room)
+            }
+            arguments = bundle
+        }
     }
 }

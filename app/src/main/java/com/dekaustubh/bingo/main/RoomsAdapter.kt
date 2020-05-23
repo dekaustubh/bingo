@@ -9,7 +9,7 @@ import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ItemRoomBinding
 import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
-import com.dekaustubh.bingo.rooms.details.RoomDetailsActivity
+import com.dekaustubh.bingo.rooms.details.RoomDetailsFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -17,6 +17,7 @@ import javax.inject.Inject
 class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.RoomViewHolder>() {
 
     private val list = mutableListOf<Room>()
+    private var onRoomSelectListener: OnRoomSelectListener? = null
 
     class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemRoomBinding = ItemRoomBinding.bind(itemView)
@@ -38,12 +39,7 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
         holder.binding.roomNameText.text = list[position].name
 
         holder.itemView.setOnClickListener {
-            with(holder.itemView.context) {
-                startActivity(
-                    Intent(this, RoomDetailsActivity::class.java)
-                        .putExtra(RoomDetailsActivity.EXTRA_ROOM, list[position])
-                )
-            }
+            onRoomSelectListener?.onRoomSelected(list[position])
         }
 
         holder.binding.startMatch.setOnClickListener {
@@ -54,6 +50,10 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
                 )
             }
         }
+    }
+
+    fun setOnRoomSelectedListener(onRoomSelectListener: OnRoomSelectListener) {
+        this.onRoomSelectListener = onRoomSelectListener
     }
 
     fun setRooms(rooms: List<Room>) {

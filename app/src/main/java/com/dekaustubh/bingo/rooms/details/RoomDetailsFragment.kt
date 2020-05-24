@@ -1,5 +1,6 @@
 package com.dekaustubh.bingo.rooms.details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dekaustubh.bingo.databinding.FragmentRoomsDetailsBinding
 import com.dekaustubh.bingo.helpers.Toaster
+import com.dekaustubh.bingo.main.OnMatchSelectedListener
 import com.dekaustubh.bingo.match.Match
-import com.dekaustubh.bingo.match.create.CreateMatchActivity
+import com.dekaustubh.bingo.match.create.CreateMatchFragment
 import com.dekaustubh.bingo.models.Room
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
+import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
@@ -26,13 +29,14 @@ class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
     lateinit var roomDetailsAdapter: RoomsDetailsAdapter
 
     private var binding: FragmentRoomsDetailsBinding? = null
+    private var onMatchSelectedListener: OnMatchSelectedListener? = null
 
     var room: Room? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        room = arguments?.getParcelable(CreateMatchActivity.EXTRA_ROOM)
+        room = arguments?.getParcelable(CreateMatchFragment.EXTRA_ROOM)
             ?: throw IllegalArgumentException("Room extra must be present")
     }
 
@@ -41,9 +45,17 @@ class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentRoomsDetailsBinding.inflate(layoutInflater)
+        binding = FragmentRoomsDetailsBinding.inflate(inflater, container, false)
         initRecyclerView()
         return binding?.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context !is OnMatchSelectedListener) {
+            throw IllegalStateException("Host activity should implement onMatchSelectedListener")
+        }
+        onMatchSelectedListener = context as OnMatchSelectedListener
     }
 
     override fun onStart() {
@@ -69,6 +81,9 @@ class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
     }
 
     private fun initRecyclerView() {
+        onMatchSelectedListener?.let {
+            roomDetailsAdapter.setOnMatchSelectedListener(it)
+        }
         with(binding?.matchesList!!) {
             setHasFixedSize(true)
 

@@ -15,7 +15,9 @@ data class Match(
     val players: MutableList<String>,
     @SerializedName("winner_id")
     val winnerId: String,
-    val status: String
+    val status: String,
+    @SerializedName("match_id")
+    val matchId: Long
 ) : Parcelable
 
 data class TakeTurn(

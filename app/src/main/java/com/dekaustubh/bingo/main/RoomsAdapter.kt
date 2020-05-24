@@ -1,15 +1,12 @@
 package com.dekaustubh.bingo.main
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ItemRoomBinding
-import com.dekaustubh.bingo.match.create.CreateMatchActivity
 import com.dekaustubh.bingo.models.Room
-import com.dekaustubh.bingo.rooms.details.RoomDetailsFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -18,6 +15,7 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
 
     private val list = mutableListOf<Room>()
     private var onRoomSelectListener: OnRoomSelectListener? = null
+    private var onStartNewMatchListener: OnStartNewMatchListener? = null
 
     class RoomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemRoomBinding = ItemRoomBinding.bind(itemView)
@@ -43,17 +41,18 @@ class RoomsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsAdapter.Roo
         }
 
         holder.binding.startMatch.setOnClickListener {
-            with(holder.binding.startMatch.context) {
-                startActivity(
-                    Intent(this, CreateMatchActivity::class.java)
-                        .putExtra(CreateMatchActivity.EXTRA_ROOM, list[position])
-                )
+            with (holder.binding.startMatch.context) {
+                onStartNewMatchListener?.onNewMatchStarted(list[position])
             }
         }
     }
 
     fun setOnRoomSelectedListener(onRoomSelectListener: OnRoomSelectListener) {
         this.onRoomSelectListener = onRoomSelectListener
+    }
+
+    fun setOnStartNewMatchListener(onStartNewMatchListener: OnStartNewMatchListener) {
+        this.onStartNewMatchListener = onStartNewMatchListener
     }
 
     fun setRooms(rooms: List<Room>) {

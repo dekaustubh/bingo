@@ -20,6 +20,7 @@ class MainFragment : DaggerFragment(), FetchRoomsContract.View {
 
     private var binding: FragmentMainBinding? = null
     private var onRoomSelectListener: OnRoomSelectListener? = null
+    private var onStartNewMatchListener: OnStartNewMatchListener? = null
 
     @Inject
     lateinit var presenter: FetchRoomsContract.Presenter
@@ -87,6 +88,9 @@ class MainFragment : DaggerFragment(), FetchRoomsContract.View {
     private fun initRecyclerView() {
         onRoomSelectListener?.let {
             roomsAdapter.setOnRoomSelectedListener(it)
+        }
+        onStartNewMatchListener?.let {
+            roomsAdapter.setOnStartNewMatchListener(it)
         }
         with(binding?.roomsList!!) {
             setHasFixedSize(true)

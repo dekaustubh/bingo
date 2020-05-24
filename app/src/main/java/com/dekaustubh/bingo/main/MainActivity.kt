@@ -3,13 +3,16 @@ package com.dekaustubh.bingo.main
 import android.os.Bundle
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ActivityMainBinding
+import com.dekaustubh.bingo.match.Match
+import com.dekaustubh.bingo.match.create.CreateMatchFragment
+import com.dekaustubh.bingo.match.join.MatchFragment
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.rooms.details.RoomDetailsFragment
 import com.dekaustubh.bingo.websockets.WebSocketCloseCode
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), OnRoomSelectListener {
+class MainActivity : DaggerAppCompatActivity(), OnRoomSelectListener, OnMatchSelectedListener, OnStartNewMatchListener {
 
     private var binding: ActivityMainBinding? = null
 
@@ -41,6 +44,20 @@ class MainActivity : DaggerAppCompatActivity(), OnRoomSelectListener {
 
     override fun onRoomSelected(room: Room) {
         val fragment = RoomDetailsFragment.newInstance(room)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment, RoomDetailsFragment.TAG)
+        transaction.commit()
+    }
+
+    override fun onMatchSelected(match: Match) {
+        val fragment = MatchFragment.newInstance(match)
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment, MatchFragment.TAG)
+        transaction.commit()
+    }
+
+    override fun onNewMatchStarted(room: Room) {
+        val fragment = CreateMatchFragment.newInstance(room)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment, RoomDetailsFragment.TAG)
         transaction.commit()

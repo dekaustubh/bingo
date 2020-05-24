@@ -3,7 +3,7 @@ package com.dekaustubh.bingo.match.join
 import com.dekaustubh.bingo.base.BasePresenter
 import com.dekaustubh.bingo.base.BaseView
 
-interface JoinMatchContract {
+interface MatchContract {
     interface View: BaseView<Presenter> {
 
     }

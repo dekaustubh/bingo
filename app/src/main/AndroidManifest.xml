@@ -25,10 +25,10 @@
             android:name=".rooms.details.RoomDetailsFragment"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".match.join.JoinMatchActivity"
+            android:name=".match.join.MatchFragment"
             android:screenOrientation="fullSensor" />
         <activity
-            android:name=".match.create.CreateMatchActivity"
+            android:name=".match.create.CreateMatchFragment"
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".rooms.create.CreateRoomDialogFragment"

@@ -9,13 +9,13 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
-class JoinMatchPresenter @Inject constructor(
+class MatchPresenter @Inject constructor(
     private val bingoApi: BingoApi,
     @Named(DI.USER_TOKEN) private val token: String
-) : JoinMatchContract.Presenter {
+) : MatchContract.Presenter {
 
     private val disposable = CompositeDisposable()
-    private var view : JoinMatchContract.View? = null
+    private var view : MatchContract.View? = null
 
     override fun joinMatch(roomId: Long, matchId: Long) {
         disposable.add(
@@ -34,7 +34,7 @@ class JoinMatchPresenter @Inject constructor(
         )
     }
 
-    override fun attach(view: JoinMatchContract.View) {
+    override fun attach(view: MatchContract.View) {
         this.view = view
     }
 

@@ -2,7 +2,7 @@ package com.dekaustubh.bingo.match.create
 
 import com.dekaustubh.bingo.base.BasePresenter
 import com.dekaustubh.bingo.base.BaseView
-import com.dekaustubh.bingo.match.Match
+import com.dekaustubh.bingo.models.Match
 import com.dekaustubh.bingo.models.Room
 
 interface CreateMatchContract {

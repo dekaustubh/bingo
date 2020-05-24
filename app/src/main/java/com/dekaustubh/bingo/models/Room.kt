@@ -2,7 +2,6 @@ package com.dekaustubh.bingo.models
 
 import android.os.Parcelable
 import com.dekaustubh.bingo.db.entities.DbRoom
-import com.dekaustubh.bingo.match.Match
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

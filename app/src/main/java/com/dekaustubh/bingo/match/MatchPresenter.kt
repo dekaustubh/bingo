@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo.match.join
+package com.dekaustubh.bingo.match
 
 import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.constants.DI

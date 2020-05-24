@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo.match
+package com.dekaustubh.bingo.models
 
 import android.os.Parcelable
 import com.dekaustubh.bingo.models.results.Success

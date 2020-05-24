@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.dekaustubh.bingo.databinding.FragmentCreateMatchBinding
 import com.dekaustubh.bingo.helpers.Toaster
-import com.dekaustubh.bingo.match.Match
+import com.dekaustubh.bingo.models.Match
 import com.dekaustubh.bingo.models.Room
 import dagger.android.support.DaggerFragment
 import timber.log.Timber

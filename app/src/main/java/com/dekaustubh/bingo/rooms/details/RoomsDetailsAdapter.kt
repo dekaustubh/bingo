@@ -9,8 +9,8 @@ import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ItemMatchBinding
 import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
 import com.dekaustubh.bingo.main.listeners.OnStartNewMatchListener
-import com.dekaustubh.bingo.match.Match
-import com.dekaustubh.bingo.match.join.MatchFragment
+import com.dekaustubh.bingo.models.Match
+import com.dekaustubh.bingo.match.MatchFragment
 import timber.log.Timber
 import javax.inject.Inject
 

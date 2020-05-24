@@ -3,7 +3,7 @@ package com.dekaustubh.bingo.di
 import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.main.MainFragment
 import com.dekaustubh.bingo.match.create.CreateMatchFragment
-import com.dekaustubh.bingo.match.join.MatchFragment
+import com.dekaustubh.bingo.match.MatchFragment
 import com.dekaustubh.bingo.register.RegisterActivity
 import com.dekaustubh.bingo.register.RegisterFragment
 import com.dekaustubh.bingo.rooms.create.CreateRoomDialogFragment

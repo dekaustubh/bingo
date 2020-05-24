@@ -6,9 +6,9 @@ import com.dekaustubh.bingo.databinding.ActivityMainBinding
 import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
 import com.dekaustubh.bingo.main.listeners.OnRoomSelectListener
 import com.dekaustubh.bingo.main.listeners.OnStartNewMatchListener
-import com.dekaustubh.bingo.match.Match
+import com.dekaustubh.bingo.models.Match
 import com.dekaustubh.bingo.match.create.CreateMatchFragment
-import com.dekaustubh.bingo.match.join.MatchFragment
+import com.dekaustubh.bingo.match.MatchFragment
 import com.dekaustubh.bingo.models.Room
 import com.dekaustubh.bingo.rooms.details.RoomDetailsFragment
 import com.dekaustubh.bingo.websockets.WebSocketCloseCode

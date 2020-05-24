@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo.match.join
+package com.dekaustubh.bingo.match
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.dekaustubh.bingo.databinding.FragmentMatchBinding
 import com.dekaustubh.bingo.helpers.Toaster
-import com.dekaustubh.bingo.match.Match
+import com.dekaustubh.bingo.models.Match
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -63,7 +63,8 @@ class MatchFragment : DaggerFragment(), MatchContract.View {
         const val EXTRA_MATCH = "extra_match"
         const val TAG = "MatchFragment"
 
-        fun newInstance(match: Match) = MatchFragment().apply {
+        fun newInstance(match: Match) = MatchFragment()
+            .apply {
             val bundle = Bundle().apply {
                 putParcelable(EXTRA_MATCH, match)
             }

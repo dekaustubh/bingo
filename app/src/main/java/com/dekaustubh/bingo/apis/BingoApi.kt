@@ -1,7 +1,7 @@
 package com.dekaustubh.bingo.apis
 
-import com.dekaustubh.bingo.match.MatchResult
-import com.dekaustubh.bingo.match.MatchesResult
+import com.dekaustubh.bingo.models.MatchResult
+import com.dekaustubh.bingo.models.MatchesResult
 import com.dekaustubh.bingo.models.results.RoomResult
 import com.dekaustubh.bingo.models.results.RoomsResult
 import com.dekaustubh.bingo.models.results.UserResult

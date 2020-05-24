@@ -4,22 +4,22 @@ import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.constants.DI
 import com.dekaustubh.bingo.eventhandlers.EventListener
 import com.dekaustubh.bingo.eventhandlers.MatchEventHandler
-import com.dekaustubh.bingo.eventhandlers.UserEventHandler
-import com.dekaustubh.bingo.websockets.BingoSocketListener
+import com.dekaustubh.bingo.utils.plusAssign
+import com.dekaustubh.bingo.websockets.MatchCreated
+import com.dekaustubh.bingo.websockets.MessageType
 import com.dekaustubh.bingo.websockets.WebsocketEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import okhttp3.WebSocketListener
 import timber.log.Timber
+import java.lang.NullPointerException
 import javax.inject.Inject
 import javax.inject.Named
 
 class RoomDetailsPresenter @Inject constructor(
     private val bingoApi: BingoApi,
     @Named(DI.USER_TOKEN) private val token: String,
-    private val matchEventHandler: MatchEventHandler,
-    private val userEventHandler: UserEventHandler
+    private val matchEventHandler: MatchEventHandler
 ) : RoomDetailsContract.Presenter, EventListener {
 
     private val compositeDisposable = CompositeDisposable()
@@ -35,7 +35,7 @@ class RoomDetailsPresenter @Inject constructor(
                         view?.showMatches(matchesResult.matches)
                     },
                     { e ->
-                        Timber.e(e)
+                        Timber.e(e, "Error while fetching existing matches for room")
                         view?.showError(e.message ?: "Error while fetching room")
                     }
                 )
@@ -55,5 +55,27 @@ class RoomDetailsPresenter @Inject constructor(
 
     override fun onNewEvent(websocketEvent: WebsocketEvent) {
         Timber.d("Got new event ${websocketEvent.messageType}")
+        when (websocketEvent.messageType) {
+            MessageType.MATCH_CREATE -> {
+                val matchCreated = websocketEvent as MatchCreated
+                compositeDisposable += bingoApi.getMatchById(token, matchCreated.roomId, matchCreated.matchId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {
+                            it.match?.let { match ->
+                                view?.newMatchCreated(match, matchCreated.userName)
+                            } ?: throw NullPointerException("Match should not be null")
+                        },
+                        { e ->
+                            Timber.e(e, "Error while fetching existing matches for room")
+                            view?.showError("Error while fetching new match")
+                        }
+                    )
+            }
+            else -> {
+
+            }
+        }
     }
 }

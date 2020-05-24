@@ -29,6 +29,9 @@ interface BingoApi {
     @GET("room/{id}")
     fun getRoomById(@Header("token") token: String, @Path("id") id: Long): Single<RoomResult>
 
+    @GET("room/{roomId}/match/{matchId}")
+    fun getMatchById(@Header("token") token: String, @Path("roomId") roomId: Long, @Path("matchId") matchId: Long): Single<MatchResult>
+
     @GET("room/{id}/matches")
     fun getRoomsMatches(
         @Header("token") token: String, @Path("id") id: Long, @Query("offset") offset: Int = 0,

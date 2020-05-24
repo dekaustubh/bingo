@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dekaustubh.bingo.databinding.FragmentRoomsDetailsBinding
 import com.dekaustubh.bingo.helpers.Toaster
 import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
-import com.dekaustubh.bingo.models.Match
 import com.dekaustubh.bingo.match.create.CreateMatchFragment
+import com.dekaustubh.bingo.models.Match
 import com.dekaustubh.bingo.models.Room
 import dagger.android.support.DaggerFragment
 import timber.log.Timber
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
@@ -78,6 +77,11 @@ class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
 
     override fun showError(message: String) {
         toaster.showToast(message)
+    }
+
+    override fun newMatchCreated(match: Match, userName: String) {
+        Timber.d("New match created with id : ${match.id}")
+        toaster.showToast("$userName created new match")
     }
 
     private fun initRecyclerView() {

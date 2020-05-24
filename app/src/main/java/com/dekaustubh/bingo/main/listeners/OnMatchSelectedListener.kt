@@ -1,4 +1,4 @@
-package com.dekaustubh.bingo.main
+package com.dekaustubh.bingo.main.listeners
 
 import com.dekaustubh.bingo.match.Match
 

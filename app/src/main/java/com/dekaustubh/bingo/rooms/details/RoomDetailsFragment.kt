@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dekaustubh.bingo.databinding.FragmentRoomsDetailsBinding
 import com.dekaustubh.bingo.helpers.Toaster
-import com.dekaustubh.bingo.main.OnMatchSelectedListener
+import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
 import com.dekaustubh.bingo.match.Match
 import com.dekaustubh.bingo.match.create.CreateMatchFragment
 import com.dekaustubh.bingo.models.Room

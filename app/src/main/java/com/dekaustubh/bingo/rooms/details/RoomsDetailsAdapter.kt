@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ItemMatchBinding
-import com.dekaustubh.bingo.main.OnMatchSelectedListener
-import com.dekaustubh.bingo.main.OnStartNewMatchListener
+import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
+import com.dekaustubh.bingo.main.listeners.OnStartNewMatchListener
 import com.dekaustubh.bingo.match.Match
 import com.dekaustubh.bingo.match.join.MatchFragment
 import timber.log.Timber

@@ -3,6 +3,9 @@ package com.dekaustubh.bingo.main
 import android.os.Bundle
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ActivityMainBinding
+import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
+import com.dekaustubh.bingo.main.listeners.OnRoomSelectListener
+import com.dekaustubh.bingo.main.listeners.OnStartNewMatchListener
 import com.dekaustubh.bingo.match.Match
 import com.dekaustubh.bingo.match.create.CreateMatchFragment
 import com.dekaustubh.bingo.match.join.MatchFragment
@@ -12,7 +15,10 @@ import com.dekaustubh.bingo.websockets.WebSocketCloseCode
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity : DaggerAppCompatActivity(), OnRoomSelectListener, OnMatchSelectedListener, OnStartNewMatchListener {
+class MainActivity : DaggerAppCompatActivity(),
+    OnRoomSelectListener,
+    OnMatchSelectedListener,
+    OnStartNewMatchListener {
 
     private var binding: ActivityMainBinding? = null
 

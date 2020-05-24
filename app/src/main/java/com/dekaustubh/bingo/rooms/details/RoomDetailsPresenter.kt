@@ -12,7 +12,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.lang.NullPointerException
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -72,6 +71,9 @@ class RoomDetailsPresenter @Inject constructor(
                             view?.showError("Error while fetching new match")
                         }
                     )
+            }
+            MessageType.MATCH_JOIN -> {
+                // TODO
             }
             else -> {
 

@@ -5,62 +5,56 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.annotations.SerializedName
 
 sealed class WebsocketEvent(
+    @SerializedName("user_id")
+    val userId: String,
     @SerializedName("message_type")
     val messageType: MessageType
 )
 
-data class UserConnected(
-    @SerializedName("user_id")
-    val userId: String
-): WebsocketEvent(MessageType.CONNECT)
+data class UserConnected(val id: String): WebsocketEvent(id, MessageType.CONNECT)
 
 data class MatchJoined(
-    @SerializedName("user_id")
-    val userId: String,
+    val id: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
     val matchId: Long,
     @SerializedName("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.MATCH_JOIN)
+) : WebsocketEvent(id, MessageType.MATCH_JOIN)
 
 data class MatchLeft(
-    @SerializedName("user_id")
-    val userId: String,
+    val id: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
     val matchId: Long,
     @SerializedName("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.MATCH_LEFT)
+) : WebsocketEvent(id, MessageType.MATCH_LEFT)
 
 data class MatchCreated(
-    @JsonProperty("user_id")
-    val userId: String,
+    val id: String,
     @JsonProperty("user_name")
     val userName: String,
     @JsonProperty("match_id")
     val matchId: Long,
     @JsonProperty("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.MATCH_CREATE)
+) : WebsocketEvent(id, MessageType.MATCH_CREATE)
 
 data class MatchStarted(
-    @SerializedName("user_id")
-    val userId: String,
+    val id: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
     val matchId: Long,
     @JsonProperty("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.MATCH_START)
+) : WebsocketEvent(id, MessageType.MATCH_START)
 
 data class MatchTurn(
-    @SerializedName("user_id")
-    val userId: String,
+    val id: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
@@ -70,14 +64,13 @@ data class MatchTurn(
     @SerializedName("next_turn")
     val nextTurn: User?,
     val number: Int
-) : WebsocketEvent(MessageType.MATCH_TURN)
+) : WebsocketEvent(id, MessageType.MATCH_TURN)
 
 data class MatchWon(
-    @SerializedName("user_id")
-    val userId: String,
+    val id: String,
     val points: Int,
     @SerializedName("match_id")
     val matchId: Long,
     @SerializedName("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.MATCH_WON)
+) : WebsocketEvent(id, MessageType.MATCH_WON)

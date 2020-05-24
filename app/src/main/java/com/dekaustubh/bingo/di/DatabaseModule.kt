@@ -2,6 +2,7 @@ package com.dekaustubh.bingo.di
 
 import android.app.Application
 import androidx.room.Room
+import com.dekaustubh.bingo.constants.DI.USER_ID
 import com.dekaustubh.bingo.constants.DI.USER_TOKEN
 import com.dekaustubh.bingo.db.BingoDatabase
 import com.dekaustubh.bingo.db.dao.RoomDao
@@ -47,6 +48,17 @@ class DatabaseModule {
             .subscribeOn(Schedulers.computation())
             .map {
                 bingoDatabase.userDao().getLoggedInUser(true)?.token ?: ""
+            }
+            .blockingFirst()
+    }
+
+    @Provides
+    @Named(USER_ID)
+    fun provideLoggedInUserId(bingoDatabase: BingoDatabase): String {
+        return Observable.just(bingoDatabase)
+            .subscribeOn(Schedulers.computation())
+            .map {
+                bingoDatabase.userDao().getLoggedInUser(true)?.id ?: ""
             }
             .blockingFirst()
     }

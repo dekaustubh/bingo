@@ -4,6 +4,7 @@ import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.constants.DI
 import com.dekaustubh.bingo.eventhandlers.EventListener
 import com.dekaustubh.bingo.eventhandlers.MatchEventHandler
+import com.dekaustubh.bingo.eventhandlers.UserEventHandler
 import com.dekaustubh.bingo.websockets.BingoSocketListener
 import com.dekaustubh.bingo.websockets.WebsocketEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +18,8 @@ import javax.inject.Named
 class RoomDetailsPresenter @Inject constructor(
     private val bingoApi: BingoApi,
     @Named(DI.USER_TOKEN) private val token: String,
-    private val matchEventHandler: MatchEventHandler
+    private val matchEventHandler: MatchEventHandler,
+    private val userEventHandler: UserEventHandler
 ) : RoomDetailsContract.Presenter, EventListener {
 
     private val compositeDisposable = CompositeDisposable()

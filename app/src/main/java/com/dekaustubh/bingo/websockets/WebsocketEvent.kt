@@ -1,5 +1,6 @@
 package com.dekaustubh.bingo.websockets
 
+import com.dekaustubh.bingo.models.User
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.annotations.SerializedName
 
@@ -13,14 +14,27 @@ data class UserConnected(
     val userId: String
 ): WebsocketEvent(MessageType.CONNECT)
 
-data class UserJoined(
+data class MatchJoined(
     @SerializedName("user_id")
     val userId: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
-    val matchId: Long
-) : WebsocketEvent(MessageType.JOIN)
+    val matchId: Long,
+    @SerializedName("room_id")
+    val roomId: Long
+) : WebsocketEvent(MessageType.MATCH_JOIN)
+
+data class MatchLeft(
+    @SerializedName("user_id")
+    val userId: String,
+    @SerializedName("user_name")
+    val userName: String,
+    @SerializedName("match_id")
+    val matchId: Long,
+    @SerializedName("room_id")
+    val roomId: Long
+) : WebsocketEvent(MessageType.MATCH_LEFT)
 
 data class MatchCreated(
     @JsonProperty("user_id")
@@ -42,24 +56,28 @@ data class MatchStarted(
     val matchId: Long,
     @JsonProperty("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.START)
+) : WebsocketEvent(MessageType.MATCH_START)
 
-data class TurnTaken(
+data class MatchTurn(
     @SerializedName("user_id")
     val userId: String,
     @SerializedName("user_name")
     val userName: String,
     @SerializedName("match_id")
     val matchId: Long,
+    @JsonProperty("room_id")
+    val roomId: Long,
     @SerializedName("next_turn")
-    val nextTurn: Long,
+    val nextTurn: User?,
     val number: Int
-) : WebsocketEvent(MessageType.TAKE_TURN)
+) : WebsocketEvent(MessageType.MATCH_TURN)
 
 data class MatchWon(
     @SerializedName("user_id")
     val userId: String,
     val points: Int,
+    @SerializedName("match_id")
+    val matchId: Long,
     @SerializedName("room_id")
     val roomId: Long
-) : WebsocketEvent(MessageType.WIN)
+) : WebsocketEvent(MessageType.MATCH_WON)

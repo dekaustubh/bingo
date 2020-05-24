@@ -1,13 +1,12 @@
 package com.dekaustubh.bingo.websockets
 
 enum class MessageType(val value: String) {
-    JOIN("join"),
+    MATCH_JOIN("match_join"),
     MATCH_CREATE("match_create"),
-    START("start"),
-    LEAVE("leave"),
-    TAKE_TURN("take_turn"),
-    UPDATE("update"),
-    WIN("win"),
+    MATCH_START("match_start"),
+    MATCH_LEFT("match_leave"),
+    MATCH_TURN("match_turn"),
+    MATCH_WON("match_won"),
     HEARTBEAT("heartbeat"),
     CONNECT("connect")
 }

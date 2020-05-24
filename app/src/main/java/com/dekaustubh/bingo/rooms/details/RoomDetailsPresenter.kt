@@ -2,17 +2,23 @@ package com.dekaustubh.bingo.rooms.details
 
 import com.dekaustubh.bingo.apis.BingoApi
 import com.dekaustubh.bingo.constants.DI
+import com.dekaustubh.bingo.eventhandlers.EventListener
+import com.dekaustubh.bingo.eventhandlers.MatchEventHandler
+import com.dekaustubh.bingo.websockets.BingoSocketListener
+import com.dekaustubh.bingo.websockets.WebsocketEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.WebSocketListener
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Named
 
 class RoomDetailsPresenter @Inject constructor(
     private val bingoApi: BingoApi,
-    @Named(DI.USER_TOKEN) private val token: String
-) : RoomDetailsContract.Presenter {
+    @Named(DI.USER_TOKEN) private val token: String,
+    private val matchEventHandler: MatchEventHandler
+) : RoomDetailsContract.Presenter, EventListener {
 
     private val compositeDisposable = CompositeDisposable()
     private var view: RoomDetailsContract.View? = null
@@ -36,11 +42,16 @@ class RoomDetailsPresenter @Inject constructor(
 
     override fun attach(view: RoomDetailsContract.View) {
         this.view = view
+        matchEventHandler.addEventListener(this)
     }
 
     override fun detach() {
+        matchEventHandler.removeEventListener(this)
         compositeDisposable.clear()
         view = null
     }
 
+    override fun onNewEvent(websocketEvent: WebsocketEvent) {
+        Timber.d("Got new event ${websocketEvent.messageType}")
+    }
 }

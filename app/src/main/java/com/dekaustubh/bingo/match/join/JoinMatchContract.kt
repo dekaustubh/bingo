@@ -9,7 +9,6 @@ interface JoinMatchContract {
     }
 
     interface Presenter: BasePresenter<View> {
-        fun connectToWebSocket()
         fun joinMatch(roomId: Long, matchId: Long)
     }
 }

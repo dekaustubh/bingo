@@ -38,7 +38,7 @@ class RoomsDetailsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsDeta
     }
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
-        holder.binding.matchName.text = list[position].status
+        holder.binding.matchName.text = list[position].status.name.toLowerCase()
 
         holder.itemView.setOnClickListener {
             with(holder.itemView.context) {

@@ -15,10 +15,17 @@ data class Match(
     val players: MutableList<String>,
     @SerializedName("winner_id")
     val winnerId: String,
-    val status: String,
+    @SerializedName("status")
+    val status: MatchStatus,
     @SerializedName("match_id")
     val matchId: Long
 ) : Parcelable
+
+enum class MatchStatus {
+    WAITING,
+    STARTED,
+    ENDED
+}
 
 data class TakeTurn(
     val number: Int,

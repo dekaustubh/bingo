@@ -23,4 +23,5 @@
     <string name="create_room_dialog_cancel">Cancel</string>
 
     <string name="web_client_id">714178780957-vhvvbdaeekvtm4gglngkq8tpvb58luv8.apps.googleusercontent.com</string>
+    <string name="start_match">Start Match</string>
 </resources>

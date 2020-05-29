@@ -9,7 +9,7 @@ interface UserDao {
     fun getAll(): List<DbUser>
 
     @Query("SELECT * FROM user WHERE id = (:userId)")
-    fun getUserById(userId: Long): DbUser?
+    fun getUserById(userId: String): DbUser?
 
     @Query("SELECT * FROM user WHERE loggedInUser = (:loggedIn)")
     fun getLoggedInUser(loggedIn: Boolean = true): DbUser?

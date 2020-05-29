@@ -7,7 +7,7 @@ import com.dekaustubh.bingo.models.Match
 interface RoomDetailsContract {
     interface View : BaseView<Presenter> {
         fun showMatches(matches: List<Match>)
-        fun newMatchCreated(match: Match, userName: String)
+        fun showMatchCreated(match: Match, userName: String)
     }
 
     interface Presenter : BasePresenter<View> {

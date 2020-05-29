@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dekaustubh.bingo.databinding.FragmentRoomsDetailsBinding
 import com.dekaustubh.bingo.helpers.Toaster
+import com.dekaustubh.bingo.main.MainActivity
 import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
 import com.dekaustubh.bingo.match.create.CreateMatchFragment
 import com.dekaustubh.bingo.models.Match
@@ -54,7 +55,7 @@ class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
         if (context !is OnMatchSelectedListener) {
             throw IllegalStateException("Host activity should implement onMatchSelectedListener")
         }
-        onMatchSelectedListener = context as OnMatchSelectedListener
+        onMatchSelectedListener = context
     }
 
     override fun onStart() {
@@ -79,9 +80,9 @@ class RoomDetailsFragment : DaggerFragment(), RoomDetailsContract.View {
         toaster.showToast(message)
     }
 
-    override fun newMatchCreated(match: Match, userName: String) {
+    override fun showMatchCreated(match: Match, userName: String) {
         Timber.d("New match created with id : ${match.id}")
-        toaster.showToast("$userName created new match")
+        roomDetailsAdapter.addMatch(match)
     }
 
     private fun initRecyclerView() {

@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 interface UserRepository {
     fun getLoggedInUser(): Single<User?>
-    fun getUserById(id: Long): Single<User?>
+    fun getUserById(id: String): Single<User?>
 }
 
 class UserRepositoryImpl @Inject constructor(
@@ -28,7 +28,7 @@ class UserRepositoryImpl @Inject constructor(
         }.subscribeOn(Schedulers.computation())
     }
 
-    override fun getUserById(id: Long): Single<User?> {
+    override fun getUserById(id: String): Single<User?> {
         return Single.fromCallable { bingoDatabase.userDao().getUserById(id) }
             .map { dbUser ->
                 User(

@@ -20,7 +20,7 @@ class StartMatchPresenterImpl @Inject constructor(
 
     override fun startMatchForRoom(room: Room) {
         disposable.add(
-            bingoApi.startMatchForRoom(token, room.id)
+            bingoApi.createMatchForRoom(token, room.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

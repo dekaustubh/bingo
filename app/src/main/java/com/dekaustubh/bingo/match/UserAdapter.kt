@@ -5,15 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dekaustubh.bingo.R
-import com.dekaustubh.bingo.databinding.ItemNumberBinding
+import com.dekaustubh.bingo.databinding.ItemUserBinding
 import javax.inject.Inject
 
-class NumberAdapter @Inject constructor() : RecyclerView.Adapter<NumberAdapter.NumberViewHolder>() {
+class UserAdapter @Inject constructor() : RecyclerView.Adapter<UserAdapter.NumberViewHolder>() {
 
-    private val items = mutableListOf<Int>()
+    private val items = mutableListOf<String>()
 
     class NumberViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding: ItemNumberBinding = ItemNumberBinding.bind(itemView)
+        val binding: ItemUserBinding = ItemUserBinding.bind(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberViewHolder {
@@ -29,12 +29,15 @@ class NumberAdapter @Inject constructor() : RecyclerView.Adapter<NumberAdapter.N
     }
 
     override fun onBindViewHolder(holder: NumberViewHolder, position: Int) {
-        holder.binding.number.text = items[position].toString()
+        holder.binding.name.text = items[position]
     }
 
-    fun setNumbers(items: List<Int>) {
-        this.items.clear()
-        this.items.addAll(items)
+    fun addUser(name: String) {
+        items.add(name)
         notifyDataSetChanged()
+    }
+
+    fun removeUser(name: String) {
+        items.remove(name)
     }
 }

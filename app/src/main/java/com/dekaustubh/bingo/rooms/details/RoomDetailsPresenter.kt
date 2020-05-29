@@ -63,7 +63,7 @@ class RoomDetailsPresenter @Inject constructor(
                     .subscribe(
                         {
                             it.match?.let { match ->
-                                view?.newMatchCreated(match, matchCreated.userName)
+                                view?.showMatchCreated(match, matchCreated.userName)
                             } ?: throw NullPointerException("Match should not be null")
                         },
                         { e ->

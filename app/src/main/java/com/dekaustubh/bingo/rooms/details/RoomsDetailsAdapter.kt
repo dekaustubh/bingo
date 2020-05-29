@@ -1,6 +1,5 @@
 package com.dekaustubh.bingo.rooms.details
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dekaustubh.bingo.R
 import com.dekaustubh.bingo.databinding.ItemMatchBinding
 import com.dekaustubh.bingo.main.listeners.OnMatchSelectedListener
-import com.dekaustubh.bingo.main.listeners.OnStartNewMatchListener
 import com.dekaustubh.bingo.models.Match
-import com.dekaustubh.bingo.match.MatchFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -19,7 +16,6 @@ class RoomsDetailsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsDeta
 
     private val list = mutableListOf<Match>()
     private var onMatchSelectedListener: OnMatchSelectedListener? = null
-    private var onStartNewMatchListener: OnStartNewMatchListener? = null
 
     class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: ItemMatchBinding = ItemMatchBinding.bind(itemView)
@@ -41,29 +37,25 @@ class RoomsDetailsAdapter @Inject constructor() : RecyclerView.Adapter<RoomsDeta
         holder.binding.matchName.text = list[position].status.name.toLowerCase()
 
         holder.itemView.setOnClickListener {
-            with(holder.itemView.context) {
-                startActivity(
-                    Intent(this, MatchFragment::class.java)
-                        .putExtra(MatchFragment.EXTRA_MATCH, list[position])
-                )
-            }
+            onMatchSelectedListener?.onMatchSelected(list[position])
         }
     }
 
     fun setOnMatchSelectedListener(onMatchSelectedListener: OnMatchSelectedListener) {
         this.onMatchSelectedListener = onMatchSelectedListener
     }
-    
-    fun setOnStartNewMatchListener(onStartNewMatchListener: OnStartNewMatchListener) {
-        this.onStartNewMatchListener = onStartNewMatchListener
+
+    fun addMatch(match: Match) {
+        list.add(match)
+        notifyDataSetChanged()
     }
 
-    fun setMatches(rooms: List<Match>) {
+    fun setMatches(matches: List<Match>) {
         list.clear()
-        rooms.forEach {
+        matches.forEach {
             Timber.d("RoomsDetailsAdapter#Match ==> ${it.id}, ${it.createdBy}")
         }
-        list.addAll(rooms)
+        list.addAll(matches)
         notifyDataSetChanged()
     }
 }

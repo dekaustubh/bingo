@@ -1,12 +1,13 @@
 package com.dekaustubh.bingo.match
 
 import com.dekaustubh.bingo.apis.BingoApi
+import com.dekaustubh.bingo.common.UserRepository
 import com.dekaustubh.bingo.constants.DI
 import com.dekaustubh.bingo.eventhandlers.EventListener
 import com.dekaustubh.bingo.eventhandlers.MatchEventHandler
-import com.dekaustubh.bingo.helpers.Vacant
 import com.dekaustubh.bingo.models.Match
 import com.dekaustubh.bingo.models.MatchState
+import com.dekaustubh.bingo.models.MatchStatus
 import com.dekaustubh.bingo.utils.plusAssign
 import com.dekaustubh.bingo.websockets.MessageType
 import com.dekaustubh.bingo.websockets.WebsocketEvent
@@ -22,7 +23,8 @@ class MatchPresenter @Inject constructor(
     private val bingoApi: BingoApi,
     @Named(DI.USER_TOKEN) private val token: String,
     @Named(DI.USER_ID) private val loggedInUserId: String,
-    private val matchEventHandler: MatchEventHandler
+    private val matchEventHandler: MatchEventHandler,
+    private val userRepository: UserRepository
 ) : MatchContract.Presenter, EventListener {
 
     private val disposable = CompositeDisposable()
@@ -31,40 +33,62 @@ class MatchPresenter @Inject constructor(
     private var roomId: Long = 0L
     private var matchId: Long = 0L
     private var match: Match? = null
-    private var matchState: MatchState? = null
+    private lateinit var matchState: MatchState
+    private var joinedPeople: Int = 0
 
     override fun initialize(roomId: Long, matchId: Long) {
         this.roomId = roomId
         this.matchId = matchId
     }
 
+    override fun startMatch() {
+        disposable += bingoApi.starteMatch(token, roomId, matchId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    val match = it?.match ?: throw NullPointerException("Match is empty")
+                    view?.showInMatchView(match, matchState)
+                },
+                {
+                    Timber.e(it, "Error while starting match")
+                    view?.showError("Something went wrong! Please try again later.")
+                }
+            )
+    }
+
     private fun joinMatch() {
         if (hasJoinedMatch()) {
             return
         }
-        disposable.add(
-            bingoApi.joinMatch(token, roomId, matchId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                    { matchResult ->
-                        this.match = matchResult?.match
-                    },
-                    { e ->
-                        Timber.e(e, "Error while joining match")
-                        e.message?.let { view?.showError(it) }
-                    }
-                )
-        )
+        disposable += bingoApi.joinMatch(token, roomId, matchId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { matchResult ->
+                    matchResult?.match?.let {
+                        this.match = it
+                        if (it.status == MatchStatus.STARTED) {
+                            view?.showInMatchView(it, matchState)
+                        }
+                    } ?: throw NullPointerException("Match is empty")
+                },
+                { e ->
+                    Timber.e(e, "Error while joining match")
+                    view?.showError("Error while joining match")
+                }
+            )
     }
 
     override fun attach(view: MatchContract.View) {
         this.view = view
         matchEventHandler.addEventListener(this)
+        monitorGameState()
         joinMatch()
     }
 
     override fun detach() {
+        view = null
         disposable.clear()
         matchEventHandler.removeEventListener(this)
     }
@@ -74,7 +98,6 @@ class MatchPresenter @Inject constructor(
         when (websocketEvent.messageType) {
             MessageType.MATCH_START -> {
                 // Match is started
-                val matchStarted = websocketEvent
                 disposable += bingoApi.getMatchById(token, roomId, matchId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -82,8 +105,7 @@ class MatchPresenter @Inject constructor(
                         { matchResult ->
                             this.match = matchResult?.match
                             this.match?.let {
-                                monitorGameState()
-                                view?.showInMatchView(it, matchState!!)
+                                view?.showInMatchView(it, matchState)
                             }
                         },
                         { e ->
@@ -92,14 +114,55 @@ class MatchPresenter @Inject constructor(
                         }
                     )
             }
+            MessageType.MATCH_JOIN -> {
+                Timber.d("${websocketEvent.userId} joined the match")
+                disposable += userRepository.getUserById(websocketEvent.userId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { user ->
+                            Timber.d("${user?.name} Joined the match")
+                            user?.let {
+                                joinedPeople++
+                                if (joinedPeople > 0) {
+                                    view?.showStartMatchView()
+                                }
+                                view?.showUserJoined(it.name)
+                            }
+                        },
+                        {
+                            Timber.e(it, "Error while getting user")
+                        }
+                    )
+            }
+            MessageType.MATCH_LEFT -> {
+                joinedPeople--
+                if (joinedPeople <= 0) {
+                    view?.hideStartMatchView()
+                } else {
+                    disposable += userRepository.getUserById(websocketEvent.userId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                            { user ->
+                                Timber.d("${user?.name} left the match")
+                                user?.let {
+                                    view?.showUserLeft(it.name)
+                                }
+                            },
+                            {
+                                Timber.e(it, "Error while getting user")
+                            }
+                        )
+                }
+            }
         }
     }
 
     private fun monitorGameState() {
-        if (matchState == null) matchState = MatchState()
-
-        disposable += Observable.merge(matchState!!.monitorColumnState(), matchState!!.monitorRowState())
-            .takeUntil(matchState!!.monitorGameWonState())
+        matchState = MatchState()
+        disposable += Observable.merge(matchState.monitorColumnState(), matchState.monitorRowState())
+            .takeUntil(matchState.monitorGameWonState())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
